@@ -3,10 +3,11 @@ install: skip
 
 os: linux
 dist: trusty
-jdk: oraclejdk8
+jdk: oraclejdk11
 
 before_install:
   - chmod +x gradlew
+
 
 script:
   - ./gradlew build --scan -s
