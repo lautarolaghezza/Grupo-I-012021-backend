@@ -10,6 +10,8 @@ cache:
 
 jdk:
   - oraclejdk8
+dist: trusty
+
 before_script:
   - chmod +x gradlew
 script:
