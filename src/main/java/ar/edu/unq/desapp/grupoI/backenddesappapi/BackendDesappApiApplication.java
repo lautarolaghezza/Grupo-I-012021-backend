@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoI.backenddesappapi;
+package ar.edu.unq.desapp.grupoi.backenddesappapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BackendDesappApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendDesappApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackendDesappApiApplication.class, args);
+    }
 
 }

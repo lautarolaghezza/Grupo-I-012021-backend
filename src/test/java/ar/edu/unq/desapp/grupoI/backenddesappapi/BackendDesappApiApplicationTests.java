@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoI.backenddesappapi;
+package ar.edu.unq.desapp.grupoi.backenddesappapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,8 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BackendDesappApiApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        assert (true);
+    }
 
 }
