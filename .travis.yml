@@ -14,7 +14,8 @@ dist: trusty
 
 deploy:
   provider: heroku
-  api_key: "545f6311-690b-48a7-804b-239ae404da0b"
+  api_key:
+    secure: $HEROKU_API_KEY
   app: re-senia
 
 before_script:
