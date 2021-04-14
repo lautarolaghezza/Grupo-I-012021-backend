@@ -12,6 +12,11 @@ jdk:
   - oraclejdk8
 dist: trusty
 
+deploy:
+  provider: heroku
+  api_key: "545f6311-690b-48a7-804b-239ae404da0b"
+  app: re-senia
+
 before_script:
   - chmod +x gradle
 script:
