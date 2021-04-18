@@ -1,6 +1,6 @@
 package model.reviews;
 
-import model.Plataform;
+import model.Platform;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public class PublicReview extends Review {
                         String extendedText,
                         int rating,
                         LocalDate date,
-                        Plataform plataform,
+                        Platform platform,
                         String language,
                         String nick,
                         int user_id,
@@ -22,34 +22,11 @@ public class PublicReview extends Review {
                 extendedText,
                 rating,
                 date,
-                plataform,
+                platform,
                 language);
         this.nick = nick;
         this.user_id = user_id;
         this.location = location;
     }
 
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

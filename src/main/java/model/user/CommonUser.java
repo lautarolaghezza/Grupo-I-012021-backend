@@ -1,7 +1,6 @@
 package model.user;
 
 
-
-public class CommonUser extends User{
+public class CommonUser extends User {
 
 }

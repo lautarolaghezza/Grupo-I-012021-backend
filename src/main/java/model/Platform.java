@@ -1,6 +1,6 @@
 package model;
 
-public enum Plataform {
+public enum Platform {
     NETFLIX,
     DISNEY_PLUS,
     AMAZON_PREMIUM
