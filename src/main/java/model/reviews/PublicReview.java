@@ -1,9 +1,13 @@
 package model.reviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.Platform;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class PublicReview extends Review {
     private String nick;
     private int user_id;
@@ -28,5 +32,10 @@ public class PublicReview extends Review {
         this.user_id = user_id;
         this.location = location;
     }
+
+    public PublicReview() {
+        super();
+    }
+
 
 }

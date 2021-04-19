@@ -1,9 +1,13 @@
 package model.reviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.Platform;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class PremiumReview extends Review {
     private int critic_id;
 
@@ -15,5 +19,9 @@ public class PremiumReview extends Review {
                 platform,
                 language);
         this.critic_id = critic_id;
+    }
+
+    public PremiumReview(){
+        super();
     }
 }

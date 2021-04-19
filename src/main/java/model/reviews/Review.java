@@ -1,9 +1,13 @@
 package model.reviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.Platform;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 abstract public class Review {
     private String resume;
     private String extendedText;
@@ -26,4 +30,7 @@ abstract public class Review {
         this.language = language;
     }
 
+    public Review() {
+
+    }
 }
