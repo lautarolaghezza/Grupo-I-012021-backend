@@ -3,39 +3,26 @@ package model.reviews;
 import lombok.Getter;
 import lombok.Setter;
 import model.Platform;
+import model.user.CommonUser;
+import model.user.User;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 public class PublicReview extends Review {
-    private String nick;
-    private int user_id;
-    private String location;
+    private boolean spoiler_Alert;
 
-    public PublicReview(String resume,
-                        String extendedText,
-                        int rating,
-                        LocalDate date,
-                        Platform platform,
-                        String language,
-                        String nick,
-                        int user_id,
-                        String location) {
-        super(resume,
-                extendedText,
-                rating,
-                date,
-                platform,
-                language);
-        this.nick = nick;
-        this.user_id = user_id;
-        this.location = location;
+    public PublicReview(int tittle_id, String resume,
+                        String extendedText, float rating,
+                        LocalDate date, Platform platform,
+                        String language, User user, boolean spoiler_Alert) {
+        super(tittle_id, resume, extendedText, rating, date, platform, language, user);
+        this.spoiler_Alert = spoiler_Alert;
     }
 
     public PublicReview() {
         super();
     }
-
 
 }

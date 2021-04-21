@@ -31,6 +31,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compile   "org.hibernate:hibernate-core:5.4.30.Final"
 }
 
 // Code coverage
