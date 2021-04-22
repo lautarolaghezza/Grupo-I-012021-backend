@@ -14,7 +14,7 @@ public class Critic extends User {
         this.critic_id = critic_id;
     }
 
-    public Review createReview(int tittle_id, String resume, String extendedText, float rating, LocalDate date, Platform platform, String language) {
-        return  new PremiumReview(tittle_id,resume,extendedText,rating,date,platform,language,this,this.critic_id);
+    public Review createReview(int tittle_id, String resume, String extendedText, float rating, LocalDate date,  String language) {
+        return  new PremiumReview(tittle_id,resume,extendedText,rating,date,language,this,this.critic_id);
     }
 }

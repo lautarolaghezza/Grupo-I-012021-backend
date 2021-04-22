@@ -17,8 +17,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 public class ReviewServiceTest {
     public ReviewService reviewService;
     public List<Review> reviews;
@@ -55,21 +53,18 @@ public class ReviewServiceTest {
                 "Me parecio una muy buena pelicula",
                 3,
                 LocalDate.now(),
-                Platform.NETFLIX,
                 "Spanish",
                 true);
         review2 = juan.createReview(2,
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 3, LocalDate.now(),
-                Platform.AMAZON_PREMIUM,
                 "Spanish",
                 false);
         review3 = juan.createReview(4,
                 "cuenta la historia de neo",
                 "es muy buena la historia",
                 4, LocalDate.now(),
-                Platform.DISNEY_PLUS,
                 "English",
                 false);
         reviewService.addReview(juan, review1);
@@ -82,7 +77,6 @@ public class ReviewServiceTest {
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 3, LocalDate.now(),
-                Platform.NETFLIX,
                 "Spanish", false);
         reviewService.addReview(juan, review3);
         Assertions.assertEquals(review3.getExtendedText(), reviewService.getReviews(3).get(0).getExtendedText());
@@ -95,7 +89,6 @@ public class ReviewServiceTest {
                 "No la olveria a ver por nada",
                 1,
                 LocalDate.now(),
-                Platform.AMAZON_PREMIUM,
                 "Spanish",
                 false);
         Assertions.assertEquals(1, result.size());
@@ -107,7 +100,7 @@ public class ReviewServiceTest {
         filters.add(filterPlatform);
         List<Review> result = reviewService.getReviewsWithFilter(filters);
 
-        Assertions.assertEquals(1,result.size());
+        Assertions.assertEquals(3,result.size());
 
     }
 

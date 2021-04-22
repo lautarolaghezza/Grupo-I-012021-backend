@@ -30,11 +30,11 @@ public class CommonUser extends User {
 
     public PublicReview createReview(int tittle_id, String resume,
                                String extendedText, float rating,
-                               LocalDate date, Platform platform,
+                               LocalDate date,
                                String language, boolean spoiler_Alert) {
         return  new PublicReview(tittle_id, resume,
                 extendedText, rating,
-                date, platform, language,
+                date, language,
                 this,spoiler_Alert);
     }
 }

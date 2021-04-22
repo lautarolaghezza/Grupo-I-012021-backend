@@ -3,21 +3,19 @@ package service.reviewService;
 import exceptions.ReviewsNotFoundException;
 import exceptions.filterNoExistException;
 import lombok.Getter;
-import lombok.Setter;
 import model.Filter;
-import model.Platform;
 import model.reviews.PublicReview;
 import model.reviews.Review;
 import model.user.CommonUser;
-import model.user.User;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Getter
-@Setter
 public class ReviewServiceImpl implements ReviewService {
-    private List<Review> serviceReviews = new ArrayList<>();
+    private final List<Review> serviceReviews;
 
     public ReviewServiceImpl(List<Review> serviceReviews) {
         this.serviceReviews = serviceReviews;
@@ -100,7 +98,7 @@ public class ReviewServiceImpl implements ReviewService {
     private List<Review> spoiler_alert_Filter(String filterName) {
         List<Review> result = new ArrayList<>();
         for ( Review review : serviceReviews) {
-            Boolean is_Spoiler_Alert = ((PublicReview) review).isSpoiler_Alert();
+            boolean is_Spoiler_Alert = ((PublicReview) review).isSpoiler_Alert();
             String is_Spoiler_Alert_String;
             if(is_Spoiler_Alert){
                 is_Spoiler_Alert_String = "TRUE";
@@ -127,7 +125,7 @@ public class ReviewServiceImpl implements ReviewService {
     private List<Review> platformFilter(String platform, List<Review> reviews) {
         List<Review> result = new ArrayList<>();
         for ( Review review : reviews) {
-            if(review.getPlatform().toString().equalsIgnoreCase(platform)){
+            if(review.getUser().getPlatform().toString().equalsIgnoreCase(platform)){
                 result.add(review);
             }
         }
@@ -167,7 +165,6 @@ public class ReviewServiceImpl implements ReviewService {
                 review.getExtendedText(),
                 review.getRating(),
                 review.getDate(),
-                review.getPlatform(),
                 review.getLanguage(),
                 review.isSpoiler_Alert());
         this.serviceReviews.add(createdReview);

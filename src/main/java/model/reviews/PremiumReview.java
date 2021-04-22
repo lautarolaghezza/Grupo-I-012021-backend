@@ -17,7 +17,6 @@ public class PremiumReview extends Review {
                          String extendedText,
                          float rating,
                          LocalDate date,
-                         Platform platform,
                          String language,
                          User user,
                          int critic_id) {
@@ -26,7 +25,6 @@ public class PremiumReview extends Review {
                 extendedText,
                 rating,
                 date,
-                platform,
                 language,
                 user);
         this.critic_id = critic_id;
