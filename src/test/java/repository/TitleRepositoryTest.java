@@ -28,7 +28,7 @@ public class TitleRepositoryTest {
 
         this.titleRepository.addTitle(title);
         Title title2 = this.titleRepository.getTitle(stconst);
-        assertEquals(title.getPrimaryTitle(),title2.getPrimaryTitle());
+        assertEquals(title.getPrimaryTitle(), title2.getPrimaryTitle());
         assertEquals(1, this.titleRepository.getTitles().size());
     }
 
@@ -56,7 +56,6 @@ public class TitleRepositoryTest {
         assertEquals(1, titleRepository.getTitles().size());
 
     }
-
 
 
 }

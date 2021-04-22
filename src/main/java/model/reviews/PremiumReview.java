@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class PremiumReview extends Review {
     private int critic_id;
 
+
     public PremiumReview(int tittle_id,
                          String resume,
                          String extendedText,
@@ -30,8 +31,4 @@ public class PremiumReview extends Review {
         this.critic_id = critic_id;
     }
 
-
-    public PremiumReview(){
-        super();
-    }
 }

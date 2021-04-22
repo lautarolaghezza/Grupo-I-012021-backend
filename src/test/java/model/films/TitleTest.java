@@ -4,12 +4,10 @@ import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class TitleTest {
 
@@ -23,17 +21,9 @@ public class TitleTest {
         this.reviews = new ArrayList<>();
         List<String> genres = new ArrayList<>();
         genres.add("action");
-        this.title = new Title("pdc1",
-                "movie",
-                "Piratas del caribe",
-                "Pirates of the caribbean",
-                false,
-                2003,
-                null,
-                143,
-                genres,
-                critics,
-                reviews);
+        this.title = new Title("pdc1", "movie", "Piratas del caribe",
+                "Pirates of the caribbean", false, 2003, null,
+                143, genres, critics, reviews);
     }
 
     @Test
@@ -60,6 +50,18 @@ public class TitleTest {
         critics.add(premiumReview);
 
         assertEquals(4, title.getRating());
+    }
+
+    @Test
+    public void moviePDCHasNewPublicReviewWith2p5StarsIfHaveOneReviewWith5AndOtherWith0() {
+        PublicReview publicReview = new PublicReview();
+        publicReview.setRating(0);
+        PremiumReview premiumReview = new PremiumReview();
+        premiumReview.setRating(5);
+        reviews.add(publicReview);
+        critics.add(premiumReview);
+
+        assertEquals(2.5, title.getRating());
     }
 
 }

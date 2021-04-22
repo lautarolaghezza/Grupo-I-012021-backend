@@ -32,7 +32,7 @@ public class TitleRepositoryImpl implements TitleRepository {
     @Override
     public void addTitle(Title title) {
         boolean isAdded = this.titles.stream().anyMatch(t -> t.getTconst().equals(title.getTconst()));
-        if(isAdded) throw new TitleHasBeenAddedException();
+        if (isAdded) throw new TitleHasBeenAddedException();
         titles.add(title);
     }
 }

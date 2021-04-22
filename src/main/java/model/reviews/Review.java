@@ -27,13 +27,6 @@ abstract public class Review {
                   LocalDate date,
                   String language, User user) {
         this.tittle_id = tittle_id;
-        this.resume = resume;
-        this.extendedText = extendedText;
-        this.rating = rating;
-        this.date = date;
-        this.language = language;
-        this.user = user;
+
     }
-
-
 }
