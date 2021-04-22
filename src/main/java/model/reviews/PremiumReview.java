@@ -1,6 +1,7 @@
 package model.reviews;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.Platform;
 import model.user.User;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PremiumReview extends Review {
     private int critic_id;
 

@@ -32,9 +32,7 @@ public class CommonUser extends User {
                                String extendedText, float rating,
                                LocalDate date,
                                String language, boolean spoiler_Alert) {
-        return  new PublicReview(tittle_id, resume,
-                extendedText, rating,
-                date, language,
-                this,spoiler_Alert);
+        PublicReview review = new PublicReview(tittle_id, resume, extendedText, rating, date, language, this,spoiler_Alert);
+        return  review;
     }
 }

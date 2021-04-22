@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PublicReview extends Review {
     private boolean spoiler_Alert;
 
-    public PublicReview(int tittle_id, String resume,
+    public PublicReview(Integer tittle_id, String resume,
                         String extendedText, float rating,
                         LocalDate date,
                         String language, User user, boolean spoiler_Alert) {
