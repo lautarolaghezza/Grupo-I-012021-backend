@@ -5,6 +5,7 @@ plugins {
     id 'war'
     id 'idea'
     id 'jacoco'
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
 
 group = 'ar.edu.unq.desapp.grupoI'
@@ -26,6 +27,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compileOnly 'org.projectlombok:lombok:1.18.20'
+    compile 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'

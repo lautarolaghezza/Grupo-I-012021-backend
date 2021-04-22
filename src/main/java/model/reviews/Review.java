@@ -1,9 +1,13 @@
 package model.reviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.Platform;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 abstract public class Review {
     private String resume;
     private String extendedText;
@@ -12,12 +16,7 @@ abstract public class Review {
     private Platform platform;
     private String language;
 
-    public Review(String resume,
-                  String extendedText,
-                  float rating,
-                  LocalDate date,
-                  Platform platform,
-                  String language) {
+    public Review(String resume, String extendedText, float rating, LocalDate date, Platform platform, String language) {
         this.resume = resume;
         this.extendedText = extendedText;
         this.rating = rating;
@@ -26,4 +25,7 @@ abstract public class Review {
         this.language = language;
     }
 
+    public Review() {
+
+    }
 }
