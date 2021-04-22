@@ -16,12 +16,7 @@ abstract public class Review {
     private Platform platform;
     private String language;
 
-    public Review(String resume,
-                  String extendedText,
-                  float rating,
-                  LocalDate date,
-                  Platform platform,
-                  String language) {
+    public Review(String resume, String extendedText, float rating, LocalDate date, Platform platform, String language) {
         this.resume = resume;
         this.extendedText = extendedText;
         this.rating = rating;
