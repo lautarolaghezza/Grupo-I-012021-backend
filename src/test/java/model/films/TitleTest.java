@@ -55,13 +55,13 @@ public class TitleTest {
     @Test
     public void moviePDCHasNewPublicReviewWith2p5StarsIfHaveOneReviewWith5AndOtherWith0() {
         PublicReview publicReview = new PublicReview();
-        publicReview.setRating(0);
+        publicReview.setRating(2);
         PremiumReview premiumReview = new PremiumReview();
         premiumReview.setRating(5);
         reviews.add(publicReview);
         critics.add(premiumReview);
 
-        assertEquals(2.5, title.getRating());
+        assertEquals(3.5, title.getRating());
     }
 
 }
