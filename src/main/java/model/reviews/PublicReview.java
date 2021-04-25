@@ -2,8 +2,6 @@ package model.reviews;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import model.Platform;
-import model.user.CommonUser;
 import model.user.User;
 
 import java.time.LocalDate;

@@ -1,13 +1,10 @@
 package service.reviewService;
 
-import model.Filter;
-import model.Platform;
+import model.filter.Filter;
 import model.reviews.PublicReview;
 import model.reviews.Review;
 import model.user.CommonUser;
-import model.user.User;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ReviewService {
