@@ -1,7 +1,6 @@
 package service;
 
-import model.Filter;
-import model.FilterType;
+import model.filter.*;
 import model.Platform;
 import model.reviews.PublicReview;
 import model.reviews.Review;
@@ -34,12 +33,12 @@ public class ReviewServiceTest {
     @BeforeEach
     public void setUp(){
 
-        filterPlatform = new Filter("NETFLIX", FilterType.PLATFORM);
-        filterSpoilerAlert = new Filter("TRUE", FilterType.SPOILER_ALERT);
-        filterTypeUser1 = new Filter("COMMON",FilterType.TYPE_USER);
-        filterTypeUser2 = new Filter("CRITIC",FilterType.TYPE_USER);
-        filterLanguage = new Filter("SPANISH", FilterType.LANGUAGE);
-        filterLocation = new Filter("ARGENTINA", FilterType.LOCATION);
+        filterPlatform = new PlatformFilter(Platform.NETFLIX);
+        filterSpoilerAlert = new SpoilerAlertFilter(true);
+        filterTypeUser1 = new TypeUserFilter(Type_User.COMMON);
+        filterTypeUser2 = new TypeUserFilter(Type_User.CRITIC);
+        filterLanguage = new LanguageFilter("SPANISH");
+        filterLocation = new LocationFilter("ARGENTINA");
 
         reviews = new ArrayList<>();
         juan = new CommonUser(Platform.NETFLIX, Type_User.COMMON,
@@ -52,19 +51,19 @@ public class ReviewServiceTest {
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 3,
-                LocalDate.now(),
+                LocalDate.of(2021,4,25),
                 "Spanish",
                 true);
         review2 = juan.createReview(2,
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
-                3, LocalDate.now(),
+                5, LocalDate.of(2000,12,24),
                 "Spanish",
                 false);
         review3 = juan.createReview(4,
                 "cuenta la historia de neo",
                 "es muy buena la historia",
-                4, LocalDate.now(),
+                4, LocalDate.of(1990,11,5),
                 "English",
                 false);
         reviewService.addReview(juan, review1);
@@ -140,6 +139,33 @@ public class ReviewServiceTest {
         List<Review> result = reviewService.getReviewsWithFilter(filters);
 
         Assertions.assertEquals(2,result.size());
+
+    }
+
+    @Test
+    public void orderByRatingAscTest(){
+       List<Review> result = reviewService.orderByRatingAsc(reviews);
+       Assertions.assertEquals(3, result.get(0).getRating());
+    }
+
+    @Test
+    public void orderByRatingDescTest(){
+        List<Review> result = reviewService.orderByRatingDesc(reviews);
+        Assertions.assertEquals(5, result.get(0).getRating());
+
+    }
+
+    @Test
+    public void orderByDateAscTest(){
+        List<Review> result = reviewService.orderByDateAsc(reviews);
+        Assertions.assertEquals(LocalDate.of(1990,11,5), result.get(0).getDate());
+
+    }
+
+    @Test
+    public void orderByDateDescTest(){
+        List<Review> result = reviewService.orderByDateDesc(reviews);
+        Assertions.assertEquals(LocalDate.of(2021,4,25), result.get(0).getDate());
 
     }
 

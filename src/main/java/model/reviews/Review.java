@@ -1,10 +1,8 @@
 package model.reviews;
 
-import com.sun.org.apache.bcel.internal.generic.DREM;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import model.Platform;
 import model.user.User;
 
 import java.time.LocalDate;
