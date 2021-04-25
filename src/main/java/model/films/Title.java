@@ -1,6 +1,7 @@
 package model.films;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Title {
+@NoArgsConstructor
+public class Title extends Classifiable {
     private String tconst;
     private String titleType;
     private String primaryTitle;
@@ -20,8 +22,6 @@ public class Title {
     private Integer endYear;
     private Integer runtimeMinutes;
     private List<String> genres;
-    private List<PremiumReview> critics;
-    private List<PublicReview> reviews;
 
 
     public Title(String tconst, String titleType, String primaryTitle,
@@ -29,6 +29,7 @@ public class Title {
                  Integer startYear, Integer endYear, Integer runtimeMinutes,
                  List<String> genres, List<PremiumReview> critics,
                  List<PublicReview> reviews) {
+        super(critics, reviews);
         this.tconst = tconst;
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
@@ -38,18 +39,5 @@ public class Title {
         this.endYear = endYear;
         this.runtimeMinutes = runtimeMinutes;
         this.genres = genres;
-        this.critics = critics;
-        this.reviews = reviews;
-    }
-
-    public Title() {
-    }
-
-    public double getRating() {
-        double totalRatingReviews = reviews.stream().mapToDouble(Review::getRating).sum();
-        double totalRatingCritics = critics.stream().mapToDouble(Review::getRating).sum();
-        int total = reviews.size() + critics.size();
-
-        return (totalRatingCritics + totalRatingReviews) / total;
     }
 }
