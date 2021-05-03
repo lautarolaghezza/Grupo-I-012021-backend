@@ -6,37 +6,41 @@ import model.filter.Filter;
 import model.reviews.PublicReview;
 import model.reviews.Review;
 import model.user.CommonUser;
+import org.springframework.stereotype.Service;
+import repository.review.ReviewRepositoryImpl;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Service
 @Getter
 public class ReviewServiceImpl implements ReviewService {
 
-    private final List<Review> serviceReviews;
+    private final ReviewRepositoryImpl reviewRepository;
 
-    public ReviewServiceImpl(List<Review> serviceReviews) {
-        this.serviceReviews = serviceReviews;
+    public ReviewServiceImpl() {this.reviewRepository = new ReviewRepositoryImpl();}
+
+    @Override
+    public List<Review> getAllReviews() {
+        return this.reviewRepository.getReviews();
     }
 
     @Override
-    public List<Review> getReviews(int tittle_id) {
-        List<Review> result = serviceReviews
-                            .stream()
-                            .filter(r -> r.getTittle_id() == tittle_id).collect(Collectors.toList());
-        if(result.size() > 0){
-            return result;
-        }else{
+    public List<Review> getReviews(String tittle_tconst) {
+        List<Review> result = reviewRepository.getReviews(tittle_tconst);
+        if(result.isEmpty()){
             throw new ReviewsNotFoundException();
+        }else{
+            return result;
         }
     }
 
     @Override
     public List<Review> getReviewsWithFilter(List<Filter> filters) {
-        List<Review> result = serviceReviews;
+        List<Review> result = reviewRepository.getReviews();
         for ( Filter filter :  filters) {
-            result = filter.doFilter(serviceReviews);
+            result = filter.doFilter(reviewRepository.getReviews());
         }
         return result;
     }
@@ -70,12 +74,13 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void addReview(CommonUser user, PublicReview review) {
         Review createdReview = user.createReview(review.getTittle_id(),
+                review.getTittle_tconst(),
                 review.getResume(),
                 review.getExtendedText(),
                 review.getRating(),
                 review.getDate(),
                 review.getLanguage(),
                 review.isSpoiler_Alert());
-        this.serviceReviews.add(createdReview);
+        this.reviewRepository.addReview(createdReview);
     }
 }

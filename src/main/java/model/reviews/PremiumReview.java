@@ -3,19 +3,23 @@ package model.reviews;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.Platform;
 import model.user.User;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class PremiumReview extends Review {
+
+    @Id
     private int critic_id;
 
 
-    public PremiumReview(int tittle_id,
+    public PremiumReview(Integer tittle_id,
+                         String tittle_tconst,
                          String resume,
                          String extendedText,
                          float rating,
@@ -24,6 +28,7 @@ public class PremiumReview extends Review {
                          User user,
                          int critic_id) {
         super(tittle_id,
+                tittle_tconst,
                 resume,
                 extendedText,
                 rating,
@@ -32,5 +37,4 @@ public class PremiumReview extends Review {
                 user);
         this.critic_id = critic_id;
     }
-
 }

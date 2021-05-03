@@ -1,7 +1,9 @@
 package service;
 
+
+import exceptions.ReviewsNotFoundException;
 import model.filter.*;
-import model.Platform;
+import model.platform.Platform;
 import model.reviews.PublicReview;
 import model.reviews.Review;
 import model.user.CommonUser;
@@ -9,16 +11,16 @@ import model.user.Type_User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.reviewService.ReviewService;
 import service.reviewService.ReviewServiceImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class ReviewServiceTest {
-    public ReviewService reviewService;
-    public List<Review> reviews;
+    public ReviewServiceImpl reviewService;
     public PublicReview review1;
     public PublicReview review2;
     public PublicReview review3;
@@ -40,14 +42,13 @@ public class ReviewServiceTest {
         filterLanguage = new LanguageFilter("SPANISH");
         filterLocation = new LocationFilter("ARGENTINA");
 
-        reviews = new ArrayList<>();
-        juan = new CommonUser(Platform.NETFLIX, Type_User.COMMON,
+        juan = new CommonUser(1, Platform.NETFLIX, Type_User.COMMON,
                 "Juancito",
-                "Argentina",
-                12);
-        this.reviewService = new ReviewServiceImpl(reviews);
+                "Argentina");
+        this.reviewService = new ReviewServiceImpl();
 
         review1 = juan.createReview(1,
+                "review1",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 3,
@@ -55,12 +56,14 @@ public class ReviewServiceTest {
                 "Spanish",
                 true);
         review2 = juan.createReview(2,
+                "review2",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 5, LocalDate.of(2000,12,24),
                 "Spanish",
                 false);
         review3 = juan.createReview(4,
+                "review3",
                 "cuenta la historia de neo",
                 "es muy buena la historia",
                 4, LocalDate.of(1990,11,5),
@@ -72,18 +75,21 @@ public class ReviewServiceTest {
         }
     @Test
         public void addReviewTest(){
-        PublicReview review3 = juan.createReview(3,
+        PublicReview review4 = juan.createReview(3,
+                "review4",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 3, LocalDate.now(),
                 "Spanish", false);
-        reviewService.addReview(juan, review3);
-        Assertions.assertEquals(review3.getExtendedText(), reviewService.getReviews(3).get(0).getExtendedText());
+        reviewService.addReview(juan, review4);
+        Assertions.assertEquals(review3.getExtendedText(), reviewService.getReviews("review3").get(0).getExtendedText());
     }
+
     @Test
     public void getReviewsTest(){
-        List<Review> result =  reviewService.getReviews(1);
+        List<Review> result =  reviewService.getReviews("review1");
         review1 = juan.createReview(1,
+                "review1",
                 "muy mala pelicula ",
                 "No la olveria a ver por nada",
                 1,
@@ -144,31 +150,38 @@ public class ReviewServiceTest {
 
     @Test
     public void orderByRatingAscTest(){
-       List<Review> result = reviewService.orderByRatingAsc(reviews);
+       List<Review> result = reviewService.orderByRatingAsc(reviewService.getAllReviews());
        Assertions.assertEquals(3, result.get(0).getRating());
     }
 
     @Test
     public void orderByRatingDescTest(){
-        List<Review> result = reviewService.orderByRatingDesc(reviews);
+        List<Review> result = reviewService.orderByRatingDesc(reviewService.getAllReviews());
         Assertions.assertEquals(5, result.get(0).getRating());
 
     }
 
     @Test
     public void orderByDateAscTest(){
-        List<Review> result = reviewService.orderByDateAsc(reviews);
+        List<Review> result = reviewService.orderByDateAsc(reviewService.getAllReviews());
         Assertions.assertEquals(LocalDate.of(1990,11,5), result.get(0).getDate());
 
     }
 
     @Test
     public void orderByDateDescTest(){
-        List<Review> result = reviewService.orderByDateDesc(reviews);
+        List<Review> result = reviewService.orderByDateDesc(reviewService.getAllReviews());
         Assertions.assertEquals(LocalDate.of(2021,4,25), result.get(0).getDate());
 
     }
 
+    @Test
+    public void reviewNotFoundTest(){
+        assertThrows(ReviewsNotFoundException.class, ()-> this.reviewService.getReviews("not found"));
+    }
 
-
+    @Test
+    public void repositorityNotNull(){
+        Assertions.assertNotNull(reviewService.getReviewRepository());
+    }
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public final class LocationFilter extends Filter {
+
     private final String location;
 
     public LocationFilter(String location) {
@@ -19,7 +20,7 @@ public final class LocationFilter extends Filter {
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> ((CommonUser) r.getUser()).getLocation().equalsIgnoreCase(location))
+                .filter( r -> ((CommonUser) r.getUser()).getLocation().equalsIgnoreCase(this.location))
                 .collect(Collectors.toList());
     }
 }

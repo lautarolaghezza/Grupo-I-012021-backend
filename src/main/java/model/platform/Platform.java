@@ -1,4 +1,4 @@
-package model;
+package model.platform;
 
 public enum Platform {
     NETFLIX,

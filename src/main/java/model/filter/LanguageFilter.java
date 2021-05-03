@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public final class LanguageFilter extends Filter{
+
     private final String language;
 
     public LanguageFilter(String language) {
@@ -18,7 +19,7 @@ public final class LanguageFilter extends Filter{
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> r.getLanguage().equalsIgnoreCase(language))
+                .filter( r -> r.getLanguage().equalsIgnoreCase(this.language))
                 .collect(Collectors.toList());
     }
 }

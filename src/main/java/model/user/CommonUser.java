@@ -1,38 +1,46 @@
 package model.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.Platform;
-import model.reviews.PremiumReview;
+import model.platform.Platform;
 import model.reviews.PublicReview;
-import model.reviews.Review;
 
+
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Getter
-@Setter
+@NoArgsConstructor
+@Entity
 public class CommonUser extends User {
+
     private String nick;
     private String location;
-    private int user_id;
 
-    public CommonUser(Platform platform,
-                      Type_User type_user,
-                      String nick,
-                      String location,
-                      int user_id) {
-        super(platform, type_user);
+
+    public CommonUser(long userId, Platform platform, Type_User type_user, String nick, String location) {
+        super(userId, platform, type_user);
         this.nick = nick;
         this.location = location;
-        this.user_id = user_id;
     }
 
+    public PublicReview createReview(int tittle_id,
+                                     String tittle_tconst,
+                                     String resume,
+                                     String extendedText, float rating,
+                                     LocalDate date,
+                                     String language, boolean spoiler_Alert) {
+        PublicReview review = new PublicReview(tittle_id,
+                tittle_tconst,
+                resume,
+                extendedText,
+                rating,
+                date,
+                language,
+                this,
+                spoiler_Alert);
 
-    public PublicReview createReview(int tittle_id, String resume,
-                               String extendedText, float rating,
-                               LocalDate date,
-                               String language, boolean spoiler_Alert) {
-        PublicReview review = new PublicReview(tittle_id, resume, extendedText, rating, date, language, this,spoiler_Alert);
         return  review;
     }
 }

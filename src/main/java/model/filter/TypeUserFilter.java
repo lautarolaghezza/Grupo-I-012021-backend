@@ -3,7 +3,6 @@ package model.filter;
 import lombok.Getter;
 import model.reviews.Review;
 import model.user.Type_User;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,7 @@ public final class TypeUserFilter extends Filter{
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> r.getUser().getType_user()== type_user)
+                .filter( r -> r.getUser().getType_user()== this.type_user)
                 .collect(Collectors.toList());
     }
 }

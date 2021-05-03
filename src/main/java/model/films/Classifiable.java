@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public abstract class Classifiable {
-
+    private String tconst;
     private List<PremiumReview> critics;
     private List<PublicReview> reviews;
 

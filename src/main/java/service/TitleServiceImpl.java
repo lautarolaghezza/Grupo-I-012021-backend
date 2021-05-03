@@ -2,10 +2,12 @@ package service;
 
 import model.films.Title;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.TitleRepository;
 
 import java.util.List;
 
+@Service
 public class TitleServiceImpl implements TitleService {
 
     @Autowired
