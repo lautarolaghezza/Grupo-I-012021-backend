@@ -7,12 +7,17 @@ import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
 import model.reviews.Review;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Title extends Classifiable {
+
+    @Id
     private String tconst;
     private String titleType;
     private String primaryTitle;
@@ -29,8 +34,7 @@ public class Title extends Classifiable {
                  Integer startYear, Integer endYear, Integer runtimeMinutes,
                  List<String> genres, List<PremiumReview> critics,
                  List<PublicReview> reviews) {
-        super(critics, reviews);
-        this.tconst = tconst;
+        super(tconst, critics, reviews);
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;

@@ -6,22 +6,23 @@ import lombok.Setter;
 import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Episode extends Classifiable {
 
-    private String tconst;
     private String parentTconst;
     private Integer seasonNumber;
     private Integer episodeNumber;
 
     public Episode(String tconst, String parentTconst, Integer seasonNumber, Integer episodeNumber,
                    List<PremiumReview> critics, List<PublicReview> reviews) {
-        super(critics, reviews);
-        this.tconst = tconst;
+        super(tconst, critics, reviews);
         this.parentTconst = parentTconst;
         this.seasonNumber = seasonNumber;
         this.episodeNumber = episodeNumber;
