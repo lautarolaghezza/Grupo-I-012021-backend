@@ -1,7 +1,6 @@
 package repository.rating;
 
 import exceptions.RatingHasBeenAddedException;
-import model.films.Classifiable;
 import model.rating.Rating;
 
 import java.util.List;

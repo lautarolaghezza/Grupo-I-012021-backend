@@ -7,7 +7,6 @@ import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.List;
 
 @Entity

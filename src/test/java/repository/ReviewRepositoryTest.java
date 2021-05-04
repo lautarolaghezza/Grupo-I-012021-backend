@@ -8,7 +8,6 @@ import model.reviews.PublicReview;
 import model.user.CommonUser;
 import model.user.Critic;
 import model.user.Type_User;
-import model.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.review.ReviewRepository;

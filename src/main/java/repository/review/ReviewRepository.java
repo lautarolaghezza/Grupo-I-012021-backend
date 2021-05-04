@@ -1,6 +1,5 @@
 package repository.review;
 
-import model.films.Classifiable;
 import model.reviews.Review;
 
 import java.util.List;

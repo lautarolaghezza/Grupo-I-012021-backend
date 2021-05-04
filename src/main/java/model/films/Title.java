@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.reviews.PremiumReview;
 import model.reviews.PublicReview;
-import model.reviews.Review;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

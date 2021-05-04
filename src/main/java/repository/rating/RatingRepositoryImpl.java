@@ -2,7 +2,6 @@ package repository.rating;
 
 import exceptions.RatingHasBeenAddedException;
 import exceptions.ReviewHasBeenAddedException;
-import model.films.Classifiable;
 import model.rating.Rating;
 import org.springframework.stereotype.Repository;
 

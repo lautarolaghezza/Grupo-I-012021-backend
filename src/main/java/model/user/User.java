@@ -2,7 +2,6 @@ package model.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import model.platform.Platform;
 
 import javax.persistence.Entity;
