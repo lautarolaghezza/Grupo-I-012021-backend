@@ -25,14 +25,13 @@ public class CommonUser extends User {
         this.location = location;
     }
 
-    public PublicReview createReview(int tittle_id,
+    public PublicReview createReview(
                                      String tittle_tconst,
                                      String resume,
                                      String extendedText, float rating,
                                      LocalDate date,
                                      String language, boolean spoiler_Alert) {
-        PublicReview review = new PublicReview(tittle_id,
-                tittle_tconst,
+        PublicReview review = new PublicReview(tittle_tconst,
                 resume,
                 extendedText,
                 rating,

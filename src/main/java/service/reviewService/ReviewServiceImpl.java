@@ -73,8 +73,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void addReview(CommonUser user, PublicReview review) {
-        Review createdReview = user.createReview(review.getTittle_id(),
-                review.getTittle_tconst(),
+        Review createdReview = user.createReview(review.getTittle_tconst(),
                 review.getResume(),
                 review.getExtendedText(),
                 review.getRating(),

@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-abstract public class Review {
+public class Review {
     @Id
-    private Integer tittle_id;
+    private Long review_id;
     private String tittle_tconst;
     private String resume;
     private String extendedText;
@@ -29,14 +29,12 @@ abstract public class Review {
     private User user;
 
 
-    public Review(Integer tittle_id,
-                  String tittle_tconst,
+    public Review(String tittle_tconst,
                   String resume,
                   String extendedText,
                   float rating,
                   LocalDate date,
                   String language, User user) {
-        this.tittle_id = tittle_id;
         this.tittle_tconst = tittle_tconst;
         this.resume = resume;
         this.extendedText = extendedText;

@@ -47,7 +47,7 @@ public class ReviewServiceTest {
                 "Argentina");
         this.reviewService = new ReviewServiceImpl();
 
-        review1 = juan.createReview(1,
+        review1 = juan.createReview(
                 "review1",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
@@ -55,14 +55,14 @@ public class ReviewServiceTest {
                 LocalDate.of(2021,4,25),
                 "Spanish",
                 true);
-        review2 = juan.createReview(2,
+        review2 = juan.createReview(
                 "review2",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
                 5, LocalDate.of(2000,12,24),
                 "Spanish",
                 false);
-        review3 = juan.createReview(4,
+        review3 = juan.createReview(
                 "review3",
                 "cuenta la historia de neo",
                 "es muy buena la historia",
@@ -75,7 +75,7 @@ public class ReviewServiceTest {
         }
     @Test
         public void addReviewTest(){
-        PublicReview review4 = juan.createReview(3,
+        PublicReview review4 = juan.createReview(
                 "review4",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",
@@ -88,7 +88,7 @@ public class ReviewServiceTest {
     @Test
     public void getReviewsTest(){
         List<Review> result =  reviewService.getReviews("review1");
-        review1 = juan.createReview(1,
+        review1 = juan.createReview(
                 "review1",
                 "muy mala pelicula ",
                 "No la olveria a ver por nada",
