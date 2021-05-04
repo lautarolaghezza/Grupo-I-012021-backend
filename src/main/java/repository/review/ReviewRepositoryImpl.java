@@ -23,6 +23,7 @@ public class ReviewRepositoryImpl implements  ReviewRepository{
 
     List<Review> reviews;
 
+    @Autowired
     NamedParameterJdbcTemplate template;
 
     public ReviewRepositoryImpl(NamedParameterJdbcTemplate template) {

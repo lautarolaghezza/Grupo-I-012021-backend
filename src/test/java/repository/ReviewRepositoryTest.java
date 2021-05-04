@@ -39,7 +39,7 @@ public class ReviewRepositoryTest {
                 Platform.DISNEY_PLUS,
                 Type_User.CRITIC,
                 6 );
-        review1 = new PublicReview(1,
+        review1 = new PublicReview(
                 "review1",
                 "muy buena pelicula de Ciencia ficcion",
                 "Me parecio una muy buena pelicula",

@@ -10,14 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class Title extends Classifiable {
 
-    @Id
-    private String tconst;
+
     private String titleType;
     private String primaryTitle;
     private String originalTitle;
