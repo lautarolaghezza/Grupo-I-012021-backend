@@ -27,8 +27,7 @@ public class PremiumReview extends Review {
                          String language,
                          User user,
                          int critic_id) {
-        super(tittle_id,
-                tittle_tconst,
+        super(tittle_tconst,
                 resume,
                 extendedText,
                 rating,

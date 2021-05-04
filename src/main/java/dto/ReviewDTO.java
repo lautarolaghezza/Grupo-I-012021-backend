@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ReviewDTO {
-    public Integer tittle_id;
     public String tittle_tconst;
     public String resume;
     public String extendedText;

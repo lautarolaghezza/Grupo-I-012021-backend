@@ -1,13 +1,29 @@
-CREATE TABLE title
+CREATE TABLE public."title"
 (
-    tconst         varchar(100) NOT NULL,
-    titleType      varchar(100) DEFAULT NULL,
-    primaryTitle   varchar(100) DEFAULT NULL,
-    originalTitle  varchar(100) DEFAULT NULL,
-    isAdult        INTEGER      DEFAULT 0,
-    startYear      INTEGER      DEFAULT NULL,
-    endYear        INTEGER      DEFAULT NULL,
-    runtimeMinutes INTEGER      DEFAULT NULL,
-    genres         varchar(100) DEFAULT NULL,
+    tconst varchar(100) NOT NULL,
+    titleType varchar(100),
+    primaryTitle varchar(100),
+    originalTitle varchar(100),
+    isAdult integer,
+    startYear integer,
+    endYear integer,
+    runtimeMinutes integer,
+    genres varchar(100),
     PRIMARY KEY (tconst)
+);
+
+CREATE TABLE public."reviews"
+(
+    review_id serial,
+    title_tconst varchar(100),
+    rating varchar(100),
+    resume varchar(240),
+    language varchar(100),
+    date date,
+    extended_text varchar(240),
+    user_id integer,
+    PRIMARY KEY (review_id)
 )
+
+
+
