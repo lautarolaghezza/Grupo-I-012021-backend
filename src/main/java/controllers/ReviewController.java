@@ -26,12 +26,12 @@ public class ReviewController {
     UserService userService;
 
 
-    @RequestMapping(value="reviews")
+    @GetMapping(value="reviews")
     public List<Review> getReviews(){
         return reviewService.getAllReviews();
     }
 
-    @RequestMapping(value= "/newreview")
+    @PostMapping(value= "/newreview")
     public String newReview(@RequestBody ReviewDTO reviewDTO){
         User user = userService.getUser(reviewDTO.userId);
 
@@ -42,7 +42,7 @@ public class ReviewController {
         return "hola";
     }
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String hello(){
         return "hola";
     }

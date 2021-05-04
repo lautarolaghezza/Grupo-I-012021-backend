@@ -1,9 +1,12 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -23,6 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/newReview").permitAll()
                 .antMatchers(HttpMethod.POST, "/newuser/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/hello").permitAll()
+                .antMatchers(HttpMethod.GET, "/review/reviews").permitAll()
                 .antMatchers(HttpMethod.GET, "/review/hello").permitAll()
                 .anyRequest().authenticated();
     }
