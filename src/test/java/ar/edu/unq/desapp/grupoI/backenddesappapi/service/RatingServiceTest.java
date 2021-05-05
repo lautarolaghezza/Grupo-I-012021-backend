@@ -1,14 +1,12 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.ratingService.RatingService;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.ratingService.RatingServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.service.ratingService.RatingService;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.service.ratingService.RatingServiceImpl;
-
-import static org.junit.Assert.assertEquals;
 
 public class RatingServiceTest {
 
