@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +16,14 @@ public class PremiumReview extends Review {
     private Integer critic_id;
 
 
-    public PremiumReview(Integer tittle_id,
+    public PremiumReview(
                          String tittle_tconst,
                          String resume,
                          String extendedText,
                          float rating,
                          LocalDate date,
                          String language,
-                         User user,
+                         UserAbs userAbs,
                          int critic_id) {
         super(
                 tittle_tconst,
@@ -32,7 +32,7 @@ public class PremiumReview extends Review {
                 rating,
                 date,
                 language,
-                user);
+                userAbs);
         this.critic_id = critic_id;
     }
 

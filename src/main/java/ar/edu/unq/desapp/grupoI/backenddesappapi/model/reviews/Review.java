@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,7 +28,7 @@ abstract public class Review {
     }
 
     @Transient
-    private User user;
+    private UserAbs userAbs;
 
     public String getTittle_tconst() {
         return tittle_tconst;
@@ -58,8 +58,8 @@ abstract public class Review {
         return userId;
     }
 
-    public User getUser() {
-        return user;
+    public UserAbs getUser() {
+        return userAbs;
     }
 
     public Review(String tittle_tconst,
@@ -67,15 +67,15 @@ abstract public class Review {
                   String extendedText,
                   float rating,
                   LocalDate date,
-                  String language, User user) {
+                  String language, UserAbs userAbs) {
         this.tittle_tconst = tittle_tconst;
         this.resume = resume;
         this.extendedText = extendedText;
         this.rating = rating;
         this.date = date;
         this.language = language;
-        this.userId = user.getUserId();
-        this.user = user;
+        this.userId = userAbs.getUserId();
+        this.userAbs = userAbs;
     }
 
 
@@ -107,7 +107,7 @@ abstract public class Review {
         this.userId = userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserAbs userAbs) {
+        this.userAbs = userAbs;
     }
 }

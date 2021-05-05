@@ -2,26 +2,27 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.repository;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserHasBeenAddedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repository.user.UserRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repository.user.UserRepositoryImpl;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class UserRepositoryTest {
+public class UserAbsRepositoryTest {
 
     private UserRepository userRepository;
-    private  CommonUser user1;
+    private CommonUserAbs user1;
     @BeforeEach
     public void setUp(){
         this.userRepository = new UserRepositoryImpl();
 
-        user1 = new CommonUser(1,
+        user1 = new CommonUserAbs(1,
                 Platform.AMAZON_PREMIUM,
                 Type_User.COMMON,
                 "ale123","Argentina");
@@ -30,8 +31,8 @@ public class UserRepositoryTest {
     }
 
     @Test void repositoryAddUser(){
-        User recuperedUser = this.userRepository.getUser(1);
-        assertEquals(user1.getNick(), ((CommonUser) recuperedUser).getNick());
+        UserAbs recuperedUserAbs = this.userRepository.getUser(1);
+        assertEquals(user1.getNick(), ((CommonUserAbs) recuperedUserAbs).getNick());
     }
 
     @Test void repositoryCantAddUser(){
@@ -43,7 +44,7 @@ public class UserRepositoryTest {
     }
 
     @Test void repositoryGetUser(){
-        assertEquals(user1.getNick(), ((CommonUser) userRepository.getUser(1)).getNick());
+        assertEquals(user1.getNick(), ((CommonUserAbs) userRepository.getUser(1)).getNick());
     }
 
 }

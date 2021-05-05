@@ -1,15 +1,15 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 
 import java.util.List;
 //@Configuration
 //@Repository
 public interface UserRepository {
 
-    List<User> getUsers();
+    List<UserAbs> getUsers();
 
-    User getUser(long id);
+    UserAbs getUser(long id);
 
-    void addUser(User user);
+    void addUser(UserAbs userAbs);
 }

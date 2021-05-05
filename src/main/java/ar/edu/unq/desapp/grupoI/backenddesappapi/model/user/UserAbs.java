@@ -5,21 +5,20 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
-public abstract class User {
+@Table(name = "userTable")
+public abstract class UserAbs {
     @Id
     private long userId;
 
-    //@Column
+    @Column
     @Enumerated(EnumType.STRING)
     private Platform platform;
 
-    //@Column
+    @Column
     @Enumerated(EnumType.STRING)
     private Type_User type_user;
 
-
-    public User(long userId, Platform platform, Type_User type_user) {
+    public UserAbs(long userId, Platform platform, Type_User type_user) {
         this.userId = userId;
         this.platform = platform;
         this.type_user = type_user;
@@ -27,7 +26,7 @@ public abstract class User {
 
 
 
-    public User() {
+    public UserAbs() {
 
     }
 

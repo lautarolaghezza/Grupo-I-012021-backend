@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ValorationHasBeenAddedException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
 
 import java.util.ArrayList;
@@ -32,12 +32,12 @@ public class ValorationRepositoryImpl implements ValorationRepository  {
     }
 
     @Override
-    public void generateValoratio(Valoration valoration, User user) {
+    public void generateValoratio(Valoration valoration, UserAbs userAbs) {
         boolean isAdded = this.valorations
                 .stream()
                 .anyMatch(t -> t.getTconst()
                         .equals(valoration.getTconst()) &&
-                        valoration.getUserId() == user.getUserId());
+                        valoration.getUserId() == userAbs.getUserId());
         if (isAdded) throw new ValorationHasBeenAddedException();
             valorations.add(valoration);
     }

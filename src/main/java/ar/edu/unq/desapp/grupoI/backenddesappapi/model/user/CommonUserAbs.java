@@ -5,26 +5,25 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "commonUser")
-public class CommonUser extends User {
+//@Table(name = "commonUser")
+public class CommonUserAbs extends UserAbs {
     @Column
     private String nick;
     @Column
     private String location;
 
 
-    public CommonUser(long userId, Platform platform, Type_User type_user, String nick, String location) {
+    public CommonUserAbs(long userId, Platform platform, Type_User type_user, String nick, String location) {
         super(userId, platform, type_user);
         this.nick = nick;
         this.location = location;
     }
 
-    public CommonUser() {
+    public CommonUserAbs() {
 
     }
 

@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 import java.util.List;
@@ -19,17 +17,17 @@ public class UserServiceImpl  implements  UserService{
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<UserAbs> getUsers() {
         return userRepository.getUsers();
     }
 
     @Override
-    public User getUser(long user_id) {
+    public UserAbs getUser(long user_id) {
         return userRepository.getUser(user_id);
     }
 
     @Override
-    public void addUser(User user) {
-        userRepository.addUser(user);
+    public void addUser(UserAbs userAbs) {
+        userRepository.addUser(userAbs);
     }
 }

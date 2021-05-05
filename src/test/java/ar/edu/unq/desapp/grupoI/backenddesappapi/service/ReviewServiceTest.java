@@ -6,7 +6,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService.ReviewServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +24,7 @@ public class ReviewServiceTest {
     public PublicReview review1;
     public PublicReview review2;
     public PublicReview review3;
-    public CommonUser juan;
+    public CommonUserAbs juan;
     public Filter filterPlatform;
     public Filter filterSpoilerAlert;
     public Filter filterTypeUser1;
@@ -42,7 +42,7 @@ public class ReviewServiceTest {
         filterLanguage = new LanguageFilter("SPANISH");
         filterLocation = new LocationFilter("ARGENTINA");
 
-        juan = new CommonUser(1, Platform.NETFLIX, Type_User.COMMON,
+        juan = new CommonUserAbs(1, Platform.NETFLIX, Type_User.COMMON,
                 "Juancito",
                 "Argentina");
         this.reviewService = new ReviewServiceImpl();

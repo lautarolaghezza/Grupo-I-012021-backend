@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,12 +16,12 @@ public class PublicReview extends Review {
     public PublicReview(String tittle_tconst,
                         String resume, String extendedText,
                         float rating, LocalDate date,
-                        String language, User user,
+                        String language, UserAbs userAbs,
                         boolean spoiler_Alert) {
         super( tittle_tconst,
                 resume, extendedText,
                 rating, date,
-                language, user);
+                language, userAbs);
         this.spoiler_Alert = spoiler_Alert;
     }
 

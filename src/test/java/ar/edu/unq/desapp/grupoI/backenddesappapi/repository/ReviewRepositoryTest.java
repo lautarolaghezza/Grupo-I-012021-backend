@@ -4,7 +4,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewHasBeenAddedEx
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Critic;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepositoryImpl;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ReviewRepositoryTest {
 
     private ReviewRepositoryImpl reviewRepository;
-    private CommonUser jose;
+    private CommonUserAbs jose;
     private Critic carlos;
     private PublicReview review1;
     private PremiumReview critic1;
@@ -28,7 +28,7 @@ public class ReviewRepositoryTest {
     @BeforeEach
     public void setUp(){
         this.reviewRepository = new ReviewRepositoryImpl();
-        jose = new CommonUser(4,
+        jose = new CommonUserAbs(4,
                 Platform.DISNEY_PLUS,
                 Type_User.COMMON,
                 "Jose1990",
@@ -47,7 +47,7 @@ public class ReviewRepositoryTest {
                 jose,
                 true);
 
-        critic1 = new PremiumReview(2,
+        critic1 = new PremiumReview(
                 "critic2",
                 "critic resume",
                 "critic extended text",

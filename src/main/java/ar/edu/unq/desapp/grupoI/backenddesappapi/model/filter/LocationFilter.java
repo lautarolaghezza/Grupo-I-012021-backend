@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 
 
 import java.util.List;
@@ -19,7 +19,7 @@ public final class LocationFilter extends Filter {
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> ((CommonUser) r.getUser()).getLocation().equalsIgnoreCase(this.location))
+                .filter( r -> ((CommonUserAbs) r.getUser()).getLocation().equalsIgnoreCase(this.location))
                 .collect(Collectors.toList());
     }
 

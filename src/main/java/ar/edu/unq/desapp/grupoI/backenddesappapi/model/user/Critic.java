@@ -6,13 +6,12 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "critic")
-public class Critic extends User {
+//@Table(name = "critic")
+public class Critic extends UserAbs {
     @Column
     private Integer critic_id;
 
@@ -25,14 +24,14 @@ public class Critic extends User {
 
     }
 
-    public Review createReview(int tittle_id,
+    public Review createReview(
                                String tittle_tconst,
                                String resume,
                                String extendedText,
                                float rating,
                                LocalDate date,
                                String language) {
-        return  new PremiumReview(tittle_id,
+        return  new PremiumReview(
                 tittle_tconst,
                 resume,
                 extendedText,

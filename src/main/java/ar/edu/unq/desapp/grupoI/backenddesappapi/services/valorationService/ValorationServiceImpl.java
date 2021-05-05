@@ -1,13 +1,11 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.valorationService;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration.ValorationRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration.ValorationRepositoryImpl;
-import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 //@Service
@@ -30,7 +28,7 @@ public class ValorationServiceImpl implements ValorationService{
     }
 
     @Override
-    public void addValoration(Valoration valoration, User user) {
-        this.valorationRepository.generateValoratio(valoration, user);
+    public void addValoration(Valoration valoration, UserAbs userAbs) {
+        this.valorationRepository.generateValoratio(valoration, userAbs);
     }
 }

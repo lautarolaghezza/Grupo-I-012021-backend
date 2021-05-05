@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 
 //import lombok.Getter;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,6 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundExcep
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.Filter;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUser;
 //import ar.edu.unq.desapp.grupoXXX.backenddesappapi.repositories.review.ReviewRepositoryImpl;
 
 import javax.transaction.Transactional;
@@ -45,7 +45,7 @@ public class ReviewServiceImpl  {
         }
     }
     @Transactional
-    public void save(CommonUser user, PublicReview review) {
+    public void save(CommonUserAbs user, PublicReview review) {
         Review createdReview = user.createReview(
                 review.getTittle_tconst(),
                 review.getResume(),
