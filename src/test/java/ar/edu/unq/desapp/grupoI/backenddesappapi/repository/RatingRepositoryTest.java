@@ -2,10 +2,10 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.repository;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.RatingHasBeenAddedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.rating.RatingRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.rating.RatingRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repository.rating.RatingRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repository.rating.RatingRepositoryImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
