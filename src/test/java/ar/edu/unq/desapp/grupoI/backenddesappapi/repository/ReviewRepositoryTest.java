@@ -7,9 +7,11 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Critic;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
@@ -18,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReviewRepositoryTest {
 
-    private ReviewRepositoryImpl reviewRepository;
+    private ReviewRepository reviewRepository;
     private CommonUserAbs jose;
     private Critic carlos;
     private PublicReview review1;
@@ -27,7 +29,7 @@ public class ReviewRepositoryTest {
 
     @BeforeEach
     public void setUp(){
-        this.reviewRepository = new ReviewRepositoryImpl();
+        //this.reviewRepository;
         jose = new CommonUserAbs(4,
                 Platform.DISNEY_PLUS,
                 Type_User.COMMON,

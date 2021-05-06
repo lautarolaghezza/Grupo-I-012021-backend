@@ -1,4 +1,4 @@
-CREATE TABLE public."title"
+/*CREATE TABLE public."title"
 (
     tconst varchar(100) NOT NULL,
     titleType varchar(100),
@@ -12,7 +12,7 @@ CREATE TABLE public."title"
     PRIMARY KEY (tconst)
 );
 
-CREATE TABLE public."reviews"
+CREATE TABLE public."review"
 (
     review_id serial,
     title_tconst varchar(100),
@@ -25,5 +25,5 @@ CREATE TABLE public."reviews"
     PRIMARY KEY (review_id)
 )
 
-
+*/
 
