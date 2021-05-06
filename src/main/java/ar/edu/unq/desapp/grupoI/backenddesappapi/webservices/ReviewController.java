@@ -27,6 +27,15 @@ public class ReviewController {
         return reviewService.findAll();
     }
 
+    @GetMapping(value="review/{id}")
+    public Review getReview(@PathVariable String id){
+        return reviewService.findById(id);
+    }
+
+    @GetMapping(value="review/title/{tconst}")
+    public List<Review> getReviewsForTitle(@PathVariable String tconst){
+        return reviewService.findReviewsForTitle(tconst);
+    }
     /*
     @PostMapping(value= "/newreview")
     public String newReview(@RequestBody ReviewDTO reviewDTO){

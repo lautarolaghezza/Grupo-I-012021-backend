@@ -10,6 +10,9 @@ import java.time.LocalDate;
 @Table(name = "review")
 abstract public class Review {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
+    @Column
     private String tittle_tconst;
     @Column
     private String resume;

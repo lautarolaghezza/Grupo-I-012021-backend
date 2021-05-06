@@ -29,6 +29,14 @@ public class ReviewService  {
         return this.reviewRepository.findAll();
     }
 
+    public Review findById(String id){
+        return this.reviewRepository.findById(id).orElseThrow(ReviewsNotFoundException::new);
+    }
+
+    public List<Review> findReviewsForTitle(String tconst) {
+        return this.reviewRepository.findReviewsForTitle(tconst);
+    }
+
     //@Override
     public List<Review> getReviews(String tittle_tconst) {
         List<Review> all = reviewRepository.findAll();
