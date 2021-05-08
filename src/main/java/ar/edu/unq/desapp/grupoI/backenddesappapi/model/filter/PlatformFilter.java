@@ -17,7 +17,7 @@ public final class PlatformFilter extends  Filter{
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> r.getUser().getPlatform() == this.platform)
+                .filter( r -> r.getUserAbs().getPlatform() == this.platform)
                 .collect(Collectors.toList());
     }
 

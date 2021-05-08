@@ -22,9 +22,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/review/newReview").permitAll()
                 .antMatchers(HttpMethod.POST, "/newReview").permitAll()
                 .antMatchers(HttpMethod.POST, "/newReview").permitAll()
-                .antMatchers(HttpMethod.POST, "/newuser/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/publicReview").permitAll()
+                .antMatchers(HttpMethod.POST, "/premiumReview").permitAll()
                 .antMatchers(HttpMethod.GET, "/hello").permitAll()
-                .antMatchers(HttpMethod.GET, "/review/reviews").permitAll()
+                .antMatchers(HttpMethod.GET, "/reviews").permitAll()
+                .antMatchers(HttpMethod.GET, "/review/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/review/title/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/hello").permitAll()
                 .anyRequest().authenticated();
     }

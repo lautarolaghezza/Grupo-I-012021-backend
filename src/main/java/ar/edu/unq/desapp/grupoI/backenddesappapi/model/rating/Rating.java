@@ -1,11 +1,16 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "rating")
 public class Rating {

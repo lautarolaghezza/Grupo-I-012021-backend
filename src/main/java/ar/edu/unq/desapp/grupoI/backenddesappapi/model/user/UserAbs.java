@@ -1,9 +1,13 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.user;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "userTable")
 public abstract class UserAbs {

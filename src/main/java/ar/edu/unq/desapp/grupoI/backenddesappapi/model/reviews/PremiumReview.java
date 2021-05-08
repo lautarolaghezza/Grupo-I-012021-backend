@@ -1,14 +1,21 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "premiumReview")
 public class PremiumReview extends Review {
 
@@ -21,7 +28,7 @@ public class PremiumReview extends Review {
                          String resume,
                          String extendedText,
                          float rating,
-                         LocalDate date,
+                         Date date,
                          String language,
                          UserAbs userAbs,
                          int critic_id) {
@@ -34,10 +41,6 @@ public class PremiumReview extends Review {
                 language,
                 userAbs);
         this.critic_id = critic_id;
-    }
-
-    public PremiumReview() {
-
     }
 
     public int getCritic_id() {
