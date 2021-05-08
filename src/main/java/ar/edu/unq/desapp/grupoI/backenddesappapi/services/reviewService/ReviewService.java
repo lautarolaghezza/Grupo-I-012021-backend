@@ -1,9 +1,9 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 
 //import lombok.Getter;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,18 +51,10 @@ public class ReviewService  {
         }
     }
     @Transactional
-    public void save(CommonUserAbs user, PublicReview review) {
-        Review createdReview = user.createReview(
-                review.getTittle_tconst(),
-                review.getResume(),
-                review.getExtendedText(),
-                review.getRating(),
-                review.getDate(),
-                review.getLanguage(),
-                review.isSpoiler_Alert());
-        this.reviewRepository.save(createdReview);
+    public Review save(CommonUserAbs user, Review review) {
+        review.setUserAbs(user);
+        return this.reviewRepository.save(review);
     }
-
 
     public List<Review> getReviewsWithFilter(List<Filter> filters) {
         List<Review> result = reviewRepository.findAll();

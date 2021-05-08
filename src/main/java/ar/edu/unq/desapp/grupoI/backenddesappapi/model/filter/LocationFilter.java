@@ -19,7 +19,7 @@ public final class LocationFilter extends Filter {
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> ((CommonUserAbs) r.getUser()).getLocation().equalsIgnoreCase(this.location))
+                .filter( r -> ((CommonUserAbs) r.getUserAbs()).getLocation().equalsIgnoreCase(this.location))
                 .collect(Collectors.toList());
     }
 

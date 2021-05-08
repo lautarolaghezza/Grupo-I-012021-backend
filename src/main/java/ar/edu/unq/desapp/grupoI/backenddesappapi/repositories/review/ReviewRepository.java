@@ -19,8 +19,6 @@ public interface ReviewRepository extends CrudRepository<Review, String>{
 
     //List<Review> findAllBy(String tittle_tconst);
 
-    Review save(Review review);
-
     @Query(value ="SELECT * FROM review r WHERE r.tittle_tconst = :tconst", nativeQuery = true)
     List<Review> findReviewsForTitle(@Param("tconst")String tconst);
 }

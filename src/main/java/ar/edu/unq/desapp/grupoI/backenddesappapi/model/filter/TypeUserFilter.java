@@ -17,7 +17,7 @@ public final class TypeUserFilter extends Filter{
     public List<Review> doFilter(List<Review> reviews) {
         return reviews
                 .stream()
-                .filter( r -> r.getUser().getType_user()== this.type_user)
+                .filter( r -> r.getUserAbs().getType_user()== this.type_user)
                 .collect(Collectors.toList());
     }
 

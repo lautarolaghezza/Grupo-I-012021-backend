@@ -5,7 +5,9 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -30,7 +32,7 @@ public class CommonUserAbs extends UserAbs {
     public PublicReview createReview(String tittle_tconst,
                                      String resume,
                                      String extendedText, float rating,
-                                     LocalDate date,
+                                     Date date,
                                      String language, boolean spoiler_Alert) {
         PublicReview review = new PublicReview(
                 tittle_tconst,

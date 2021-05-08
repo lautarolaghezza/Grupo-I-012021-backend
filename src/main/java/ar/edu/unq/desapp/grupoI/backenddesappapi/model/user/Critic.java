@@ -3,10 +3,12 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.user;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
+import org.hibernate.exception.DataException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -29,7 +31,7 @@ public class Critic extends UserAbs {
                                String resume,
                                String extendedText,
                                float rating,
-                               LocalDate date,
+                               Date date,
                                String language) {
         return  new PremiumReview(
                 tittle_tconst,
