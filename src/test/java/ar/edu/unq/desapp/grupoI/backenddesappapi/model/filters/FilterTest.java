@@ -18,7 +18,7 @@ public class FilterTest {
     @BeforeEach
     public void setUp() {
         languageFilter = new LanguageFilter("Spanish");
-        locationFilter = new LocationFilter("Argentina");
+        locationFilter = new LocationFilter("AR");
         platformFilter = new PlatformFilter("NETFLIX");
         spoilerAlertFilter = new SpoilerAlertFilter(false);
         typeUserFilter = new TypeUserFilter("COMMON");
@@ -26,11 +26,11 @@ public class FilterTest {
 
     @Test
     public void gettersTestlanguageFilter(){
-        assertEquals("Spanish", languageFilter.getLanguage());
+        assertEquals("spanish", languageFilter.getLanguage());
     }
     @Test
     public void gettersTestlocationFilter(){
-        assertEquals("Argentina", locationFilter.getLocation());
+        assertEquals("AR", locationFilter.getLocation());
     }
     @Test
     public void gettersTestplatformFilter(){
