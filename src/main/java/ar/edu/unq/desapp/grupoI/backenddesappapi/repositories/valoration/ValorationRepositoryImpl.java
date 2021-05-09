@@ -37,7 +37,7 @@ public class ValorationRepositoryImpl implements ValorationRepository  {
                 .stream()
                 .anyMatch(t -> t.getTconst()
                         .equals(valoration.getTconst()) &&
-                        valoration.getUserId() == userAbs.getUserId());
+                        valoration.getUserId() == userAbs.getId());
         if (isAdded) throw new ValorationHasBeenAddedException();
             valorations.add(valoration);
     }

@@ -1,18 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.service;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserServiceImpl;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+/*
 public class UserAbsServiceTest {
 
     @Mock
@@ -55,3 +44,4 @@ public class UserAbsServiceTest {
         assertThrows(UserNotFoundException.class, ()-> this.userService.getUser(567));
     }
 }
+*/

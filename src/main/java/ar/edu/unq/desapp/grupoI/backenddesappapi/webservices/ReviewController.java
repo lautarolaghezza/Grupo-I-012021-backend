@@ -1,17 +1,17 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService.ReviewService;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -20,10 +20,6 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
-
-    //@Autowired
-    UserService userService;
-
 
     @GetMapping(value = "reviews")
     public List<Review> getReviews() {
@@ -39,18 +35,23 @@ public class ReviewController {
     public List<Review> getReviewsForTitle(@PathVariable String tconst) {
         return reviewService.findReviewsForTitle(tconst);
     }
+    @PostMapping(value = "review/filters")
+    public List<Review> getReviewsWithFilters(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
+        //System.out.println(filters.getClass());
+        return reviewService.getReviewsWithFilter(filters);
+    }
 
     @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestBody PublicReview review) {
         CommonUserAbs user = new CommonUserAbs();
-        user.setUserId(review.getUserId());
+        user.setId(review.getUserId());
         return reviewService.save(user, review);
     }
 
     @PostMapping(value = "/premiumReview")
     public Review newPremiumReview(@RequestBody PremiumReview review) {
         CommonUserAbs user = new CommonUserAbs();
-        user.setUserId(review.getUserId());
+        user.setId(review.getUserId());
         return reviewService.save(user, review);
     }
 

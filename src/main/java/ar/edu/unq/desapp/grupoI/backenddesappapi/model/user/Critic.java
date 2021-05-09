@@ -3,16 +3,15 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.user;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import org.hibernate.exception.DataException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.time.LocalDate;
+import javax.persistence.Table;
 import java.util.Date;
 
 
 @Entity
-//@Table(name = "critic")
+@Table(name = "critic")
 public class Critic extends UserAbs {
     @Column
     private Integer critic_id;
