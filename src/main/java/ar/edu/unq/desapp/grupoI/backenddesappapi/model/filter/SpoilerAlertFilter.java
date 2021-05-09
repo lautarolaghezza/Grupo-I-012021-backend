@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public final class SpoilerAlertFilter extends Filter{
     }
 
     @Override
-    public List<Review> doFilter(List<Review> reviews) {
+    public List<Review> doFilter(List<Review> reviews, List<UserAbs> userAbsList) {
         return reviews
                                 .stream()
                                 .filter( r -> ((PublicReview) r).isSpoiler_Alert()== this.spoilerAlert)

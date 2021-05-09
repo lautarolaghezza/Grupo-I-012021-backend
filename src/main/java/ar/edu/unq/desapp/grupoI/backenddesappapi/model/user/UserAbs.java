@@ -9,10 +9,11 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "userTable")
+@Table(name = "user_table")
 public abstract class UserAbs {
     @Id
-    private long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -23,7 +24,7 @@ public abstract class UserAbs {
     private Type_User type_user;
 
     public UserAbs(long userId, Platform platform, Type_User type_user) {
-        this.userId = userId;
+        this.id = userId;
         this.platform = platform;
         this.type_user = type_user;
     }
@@ -34,8 +35,8 @@ public abstract class UserAbs {
 
     }
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
     public Platform getPlatform() {

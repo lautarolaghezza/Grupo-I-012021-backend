@@ -1,18 +1,12 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 @Getter
 @Setter
@@ -64,7 +58,7 @@ abstract public class Review {
         this.rating = rating;
         this.date = date;
         this.language = language;
-        this.userId = userAbs.getUserId();
+        this.userId = userAbs.getId();
         this.userAbs = userAbs;
     }
 

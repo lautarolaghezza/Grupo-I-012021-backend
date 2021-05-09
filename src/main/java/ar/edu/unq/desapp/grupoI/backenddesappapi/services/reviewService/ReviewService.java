@@ -1,29 +1,31 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 
 //import lombok.Getter;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.Filter;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-//import ar.edu.unq.desapp.grupoXXX.backenddesappapi.repositories.review.ReviewRepositoryImpl;
-
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.stream.Collectors;
+
+//import ar.edu.unq.desapp.grupoXXX.backenddesappapi.repositories.review.ReviewRepositoryImpl;
 
 @Service
 public class ReviewService  {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    @Autowired
+    private UserService userService;
 
     public List<Review> findAll() {
         return this.reviewRepository.findAll();
@@ -55,13 +57,41 @@ public class ReviewService  {
         review.setUserAbs(user);
         return this.reviewRepository.save(review);
     }
-
-    public List<Review> getReviewsWithFilter(List<Filter> filters) {
+    public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+        List<Filter> filterList = this.convertMapToListFilter(filters);
+        List<UserAbs> userAbsList = userService.findAll();
         List<Review> result = reviewRepository.findAll();
-        for ( Filter filter :  filters) {
-            result = filter.doFilter(reviewRepository.findAll());
+        for ( Filter filter :  filterList) {
+            result = filter.doFilter(result, userAbsList);
         }
         return result;
+    }
+
+    private List<Filter> convertMapToListFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+    List<Filter> listFilter= new ArrayList<>();
+    System.out.println(filters);
+    for (String filter :  filters.keySet()){
+        System.out.println(filter);
+        switch (filter){
+            case "language":
+                listFilter.add(new LanguageFilter(filters.get("language")));
+                break;
+            case "location":
+                listFilter.add(new LocationFilter(filters.get("location")));
+                break;
+            case "platform":
+                listFilter.add(new PlatformFilter(filters.get("platform")));
+                break;
+            case "spoilerAlert":
+                listFilter.add(new SpoilerAlertFilter(filters.get("spoilerAlert").equalsIgnoreCase("true")));
+                break;
+            case "typeUser":
+                listFilter.add(new TypeUserFilter(filters.get("typeUser")));
+                break;
+            default: throw new FileNotFoundException();
+        }
+    }
+    return  listFilter;
     }
 
 

@@ -19,9 +19,9 @@ public class FilterTest {
     public void setUp() {
         languageFilter = new LanguageFilter("Spanish");
         locationFilter = new LocationFilter("Argentina");
-        platformFilter = new PlatformFilter(Platform.NETFLIX);
+        platformFilter = new PlatformFilter("NETFLIX");
         spoilerAlertFilter = new SpoilerAlertFilter(false);
-        typeUserFilter = new TypeUserFilter(Type_User.COMMON);
+        typeUserFilter = new TypeUserFilter("COMMON");
     }
 
     @Test
