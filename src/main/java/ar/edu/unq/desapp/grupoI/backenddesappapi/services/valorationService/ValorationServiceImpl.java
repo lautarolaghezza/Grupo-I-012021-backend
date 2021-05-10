@@ -1,34 +1,35 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services.valorationService;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration.ValorationRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration.ValorationRepositoryImpl;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//@Service
-public class ValorationServiceImpl implements ValorationService{
+@Service
+public class ValorationServiceImpl{
 
+    @Autowired
     private ValorationRepository valorationRepository;
 
-    public ValorationServiceImpl() {
-        this.valorationRepository = new ValorationRepositoryImpl();
-    }
-
-    @Override
     public List<Valoration> getValorations() {
-        return valorationRepository.getValorations();
+        List<Valoration> result = valorationRepository.findAll();
+        for (Valoration v : result){
+            v.setLike(v.getClike().equalsIgnoreCase("true"));
+        }
+        return result;
     }
 
-    @Override
-    public List<Valoration> getValorationsOf(String tconst) {
-        return valorationRepository.getValorationsOf(tconst);
+    public Valoration getValorationById(Long id) {
+        return valorationRepository.findById(id);
     }
 
-    @Override
-    public void addValoration(Valoration valoration, UserAbs userAbs) {
-        this.valorationRepository.generateValoratio(valoration, userAbs);
+    public List<Valoration> getValorationsOfReview(Long id) {
+        return valorationRepository.findByReview_id(id);
+    }
+
+    public void addValoration(Valoration valoration) {
+        this.valorationRepository.save(valoration);
     }
 }
