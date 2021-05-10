@@ -1,15 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.valoration;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ValorationHasBeenAddedException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class ValorationRepositoryImpl implements ValorationRepository  {
-
+public class ValorationRepositoryImpl {
+/*
     private List<Valoration> valorations;
 
     public ValorationRepositoryImpl() {
@@ -17,12 +9,12 @@ public class ValorationRepositoryImpl implements ValorationRepository  {
     }
 
 
-    @Override
+
     public List<Valoration> getValorations() {
         return this.valorations;
     }
 
-    @Override
+
     public List<Valoration> getValorationsOf(String tconst) {
         return this.valorations
                 .stream()
@@ -41,5 +33,5 @@ public class ValorationRepositoryImpl implements ValorationRepository  {
         if (isAdded) throw new ValorationHasBeenAddedException();
             valorations.add(valoration);
     }
-
+*/
 }
