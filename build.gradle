@@ -35,6 +35,10 @@ dependencies {
     compile   "org.hibernate:hibernate-core:5.4.30.Final"
     compile 'org.postgresql:postgresql'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile('org.springframework.boot:spring-boot-starter-web')
+
 }
 
 // Code coverage

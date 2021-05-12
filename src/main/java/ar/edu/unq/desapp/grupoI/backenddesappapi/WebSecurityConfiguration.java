@@ -27,6 +27,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/review/filters").permitAll()
                 .antMatchers(HttpMethod.POST, "/valoration").permitAll()
                 .antMatchers(HttpMethod.GET, "/hello").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/webjarsi/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/reviews").permitAll()
                 .antMatchers(HttpMethod.GET, "/valorations").permitAll()
                 .antMatchers(HttpMethod.GET, "/valorations/*").permitAll()
@@ -39,6 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/review/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/review/title/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/hello").permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated();
     }
 
