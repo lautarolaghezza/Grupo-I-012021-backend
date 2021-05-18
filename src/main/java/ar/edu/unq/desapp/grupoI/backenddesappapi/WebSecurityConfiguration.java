@@ -26,6 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/premiumReview").permitAll()
                 .antMatchers(HttpMethod.POST, "/review/filters").permitAll()
                 .antMatchers(HttpMethod.POST, "/valoration").permitAll()
+                .antMatchers(HttpMethod.POST, "/report/review").permitAll()
                 .antMatchers(HttpMethod.GET, "/hello").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html/*").permitAll()
