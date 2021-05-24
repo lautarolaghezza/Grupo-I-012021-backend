@@ -28,7 +28,15 @@ public class ReviewService  {
     private UserService userService;
 
     public List<Review> findAll() {
-        return this.reviewRepository.findAll();
+        return iterableToList(this.reviewRepository.findAll());
+    }
+
+    private List<Review> iterableToList(Iterable<Review> iterable){
+        List<Review> reviews = new ArrayList<>();
+        for (Review review : iterable) {
+            reviews.add(review);
+        }
+        return reviews;
     }
 
     public Review findById(String id){
@@ -41,7 +49,7 @@ public class ReviewService  {
 
     //@Override
     public List<Review> getReviews(String tittle_tconst) {
-        List<Review> all = reviewRepository.findAll();
+        List<Review> all = iterableToList(reviewRepository.findAll());
         List<Review> result = all.stream()
                 .filter(r -> r.getTittle_tconst()
                         .equalsIgnoreCase(tittle_tconst))
@@ -60,7 +68,7 @@ public class ReviewService  {
     public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
         List<Filter> filterList = this.convertMapToListFilter(filters);
         List<UserAbs> userAbsList = userService.findAll();
-        List<Review> result = reviewRepository.findAll();
+        List<Review> result = iterableToList(reviewRepository.findAll());
         for ( Filter filter :  filterList) {
             result = filter.doFilter(result, userAbsList);
         }

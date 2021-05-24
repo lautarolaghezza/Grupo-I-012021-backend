@@ -35,7 +35,7 @@ public class ReviewController {
     public List<Review> getReviewsForTitle(@PathVariable String tconst) {
         return reviewService.findReviewsForTitle(tconst);
     }
-    @PostMapping(value = "review/filters")
+    @GetMapping(value = "review/filters")
     public List<Review> getReviewsWithFilters(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         //System.out.println(filters.getClass());
         return reviewService.getReviewsWithFilter(filters);
