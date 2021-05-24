@@ -13,10 +13,6 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, String>{
 
-    //@Query(value = "SELECT * FROM review", nativeQuery = true)
-    //List<Review> findAll();
-
-    //List<Review> findAllBy(String tittle_tconst);
 
     @Query(value ="SELECT * FROM review r WHERE r.tittle_tconst = :tconst", nativeQuery = true)
     List<Review> findReviewsForTitle(@Param("tconst")String tconst);
