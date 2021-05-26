@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.report.Report;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.report.ReportService;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reportService.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PostMapping;

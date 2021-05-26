@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.valorationService.ValorationServiceImpl;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.valorationService.ValorationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class ValorationController {
     @Autowired
-    private ValorationServiceImpl valorationService;
+    private ValorationService valorationService;
 
     @GetMapping(value = "valorations")
     public List<Valoration> getValorarions(){return valorationService.getValorations();}
