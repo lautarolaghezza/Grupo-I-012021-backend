@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.user;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,11 @@ public class CommonUserAbs extends UserAbs {
     @Column
     private String location;
 
-
+    public CommonUserAbs(Long id, Platform platform, Type_User type_user, String nick, String location) {
+        super(id, platform, type_user);
+        this.nick = nick;
+        this.location = location;
+    }
 
     public PublicReview createReview(String tittle_tconst,
                                      String resume,
