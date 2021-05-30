@@ -27,6 +27,9 @@ public interface UserRepository extends CrudRepository<UserAbs, Integer> {
     @Query(value ="SELECT * FROM user_table u WHERE u.type_user = :user_type", nativeQuery = true)
     List<UserAbs> findUserByTypeUser(@Param("user_type")String user_type);
 
+    @Query(value ="SELECT * FROM user_table u WHERE u.nickname = :nickname", nativeQuery = true)
+    UserAbs findUserByNickname(@Param("nickname")String nickname);
+
 
 
 }

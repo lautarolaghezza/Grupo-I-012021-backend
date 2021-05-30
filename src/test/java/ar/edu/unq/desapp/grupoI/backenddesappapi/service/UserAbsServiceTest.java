@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepository;
@@ -34,11 +33,13 @@ public class UserAbsServiceTest {
     public void setUp(){
         users = new ArrayList<UserAbs>();
         MockitoAnnotations.initMocks(this);
-        CommonUserAbs jose = new CommonUserAbs(4L,
+        UserAbs jose = new UserAbs(4L,
+                "",
                 Platform.DISNEY_PLUS,
                 Type_User.COMMON,
                 "Jose1990",
-                "AR");
+                "AR",
+                null);
         userService = new UserService(userRepository);
         userService.save(jose);
         users.add(jose);
@@ -53,16 +54,16 @@ public class UserAbsServiceTest {
     @Test
     public void getUserTest(){
         doReturn(users.get(0)).when(userRepository).findBy(4);
-        Assertions.assertEquals("Jose1990", ((CommonUserAbs) userService.findBy(4)).getNick());
+        Assertions.assertEquals("Jose1990", ( userService.findBy(4)).getNickname());
     }
 
     @Test
     public void addUserTest(){
         doReturn(users).when(userRepository).findAll();
-        CommonUserAbs alejadro = new CommonUserAbs(1L,
+        UserAbs alejadro = new UserAbs(1L, "",
                 Platform.AMAZON_PREMIUM,
                 Type_User.COMMON,
-                "ale123","Argentina");
+                "ale123","Argentina", null);
         users.add(alejadro);
         userService.save(alejadro);
         Assertions.assertEquals(2, userService.findAll().size());
@@ -76,7 +77,7 @@ public class UserAbsServiceTest {
     @Test
     public void  findUserByLocation(){
         doReturn(users.stream()
-                      .filter(u -> u.getType_user() == Type_User.COMMON && ((CommonUserAbs)u).getLocation() == "AR")
+                      .filter(u -> u.getType_user() == Type_User.COMMON && u.getLocation() == "AR")
                       .collect(Collectors.toList()))
                 .when(userRepository).findUserByLocation("AR");
         assertEquals(1, this.userService.findUserByLocation("AR").size());

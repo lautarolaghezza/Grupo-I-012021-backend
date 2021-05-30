@@ -4,7 +4,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
@@ -61,7 +60,7 @@ public class ReviewService  {
         }
     }
     @Transactional
-    public Review save(CommonUserAbs user, Review review) {
+    public Review save(UserAbs user, Review review) {
         review.setUserAbs(user);
         return this.reviewRepository.save(review);
     }

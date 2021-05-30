@@ -4,7 +4,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -44,14 +44,14 @@ public class ReviewController {
 
     @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestBody PublicReview review) {
-        CommonUserAbs user = new CommonUserAbs();
+        UserAbs user = new UserAbs();
         user.setId(review.getUserId());
         return reviewService.save(user, review);
     }
 
     @PostMapping(value = "/premiumReview")
     public Review newPremiumReview(@RequestBody PremiumReview review) {
-        CommonUserAbs user = new CommonUserAbs();
+        UserAbs user = new UserAbs();
         user.setId(review.getUserId());
         return reviewService.save(user, review);
     }

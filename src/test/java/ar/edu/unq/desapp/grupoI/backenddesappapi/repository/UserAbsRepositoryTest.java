@@ -1,14 +1,5 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.repository;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserHasBeenAddedException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
