@@ -31,12 +31,12 @@ public class AuthenticationController {
     }
     @PostMapping("login")
     public UserAbs login(@RequestBody UserAbs userBody) {
-        UserAbs userLoaded = userService.findBy(1);
+        UserAbs userLoaded = userService.findUserByNickname(userBody.getNickname());
+        System.out.println(userLoaded.getNickname());
         System.out.println(userLoaded.getPassword());
         String token = GenerateToken(userBody.getPassword());
         System.out.println(token);
         System.out.println(userLoaded.getPassword().equals(token));
-
         if(userLoaded.getPassword().equals(token)){
             return userLoaded;
         }else{
