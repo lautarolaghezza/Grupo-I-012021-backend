@@ -6,29 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
     @GetMapping(value = "users")
-    public List<UserAbs> getUsers(){ return userService.findAll();}
+    public List<UserAbs> getUsers(@RequestHeader("api-key") String apiKey){
+        validateApiKey(apiKey);
+        return userService.findAll();}
 
     @GetMapping(value = "users/location/{location}")
-    public  List<UserAbs> getUsersByLocation(@PathVariable String location){
+    public  List<UserAbs> getUsersByLocation(@RequestHeader("api-key") String apiKey, @PathVariable String location){
+        validateApiKey(apiKey);
         return  userService.findUserByLocation(location);
     }
     @GetMapping(value = "users/typeuser/{typeuser}")
-    public  List<UserAbs> getUsersByTypeUser(@PathVariable String typeuser){
+    public  List<UserAbs> getUsersByTypeUser(@RequestHeader("api-key") String apiKey, @PathVariable String typeuser){
+        validateApiKey(apiKey);
         return  userService.findUserByTypeUser(typeuser);
     }
     @GetMapping(value = "users/platform/{platform}")
-    public  List<UserAbs> getUsersByPlatform(@PathVariable String platform){
+    public  List<UserAbs> getUsersByPlatform(@RequestHeader("api-key") String apiKey, @PathVariable String platform){
+        validateApiKey(apiKey);
         return  userService.findUserByPlatform(platform);
     }
 }

@@ -13,33 +13,27 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class TitleController {
+public class TitleController extends BaseController {
 
     @Autowired
     private TitleService titleService;
 
-    @Autowired
-    AuthServiceImpl authService;
-
     @GetMapping(value = "titles")
     public ResponseEntity<List<Title>> findAll(@RequestHeader("api-key") String apiKey) {
-        System.out.println("apiKey = " + apiKey);
-        try {
-            authService.validateUserToken(apiKey);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        validateApiKey(apiKey);
         List<Title> titles = titleService.findAll();
         return new ResponseEntity<>(titles, HttpStatus.OK);
     }
 
     @GetMapping(value = "title/{id}")
-    public Title findByID(@PathVariable String id) {
+    public Title findByID(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
+        validateApiKey(apiKey);
         return titleService.findById(id);
     }
 
     @GetMapping(value = "titles/findAny")
-    public List<Title> getTitlesMatch(@RequestBody Title title) {
+    public List<Title> getTitlesMatch(@RequestHeader("api-key") String apiKey, @RequestBody Title title) {
+        validateApiKey(apiKey);
         return titleService.findReviewsMatch(title);
     }
 

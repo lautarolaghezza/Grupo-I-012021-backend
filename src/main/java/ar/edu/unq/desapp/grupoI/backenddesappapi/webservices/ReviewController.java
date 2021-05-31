@@ -16,41 +16,47 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class ReviewController {
+public class ReviewController extends BaseController {
 
     @Autowired
     private ReviewService reviewService;
 
     @GetMapping(value = "reviews")
-    public List<Review> getReviews() {
+    public List<Review> getReviews(@RequestHeader("api-key") String apiKey) {
+        validateApiKey(apiKey);
         return reviewService.findAll();
     }
 
     @GetMapping(value = "review/{id}")
-    public Review getReview(@PathVariable String id) {
+    public Review getReview(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
+        validateApiKey(apiKey);
         return reviewService.findById(id);
     }
 
 
     @GetMapping(value = "review/title/{tconst}")
-    public List<Review> getReviewsForTitle(@PathVariable String tconst) {
+    public List<Review> getReviewsForTitle(@RequestHeader("api-key") String apiKey, @PathVariable String tconst) {
+        validateApiKey(apiKey);
         return reviewService.findReviewsForTitle(tconst);
     }
     @GetMapping(value = "review/filters")
-    public List<Review> getReviewsWithFilters(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
+    public List<Review> getReviewsWithFilters(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         //System.out.println(filters.getClass());
+        validateApiKey(apiKey);
         return reviewService.getReviewsWithFilter(filters);
     }
 
     @PostMapping(value = "/publicReview")
-    public Review newPublicReview(@RequestBody PublicReview review) {
+    public Review newPublicReview(@RequestHeader("api-key") String apiKey, @RequestBody PublicReview review) {
+        validateApiKey(apiKey);
         UserAbs user = new UserAbs();
         user.setId(review.getUserId());
         return reviewService.save(user, review);
     }
 
     @PostMapping(value = "/premiumReview")
-    public Review newPremiumReview(@RequestBody PremiumReview review) {
+    public Review newPremiumReview(@RequestHeader("api-key") String apiKey, @RequestBody PremiumReview review) {
+        validateApiKey(apiKey);
         UserAbs user = new UserAbs();
         user.setId(review.getUserId());
         return reviewService.save(user, review);

@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthServiceImpl;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
@@ -13,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-public class AuthenticationController {
-
-    @Autowired
-    AuthServiceImpl authService;
+public class AuthenticationController extends BaseController {
 
     @PostMapping("register")
     @CrossOrigin(origins = "*")
@@ -24,6 +22,7 @@ public class AuthenticationController {
         authService.registerUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
     @PostMapping("login")
     public String login(@RequestBody PlatformUser user) {
         PlatformUser userLoaded = authService.findUser(user.getNickname());

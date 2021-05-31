@@ -10,21 +10,28 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class ValorationController {
+public class ValorationController extends BaseController{
     @Autowired
     private ValorationService valorationService;
 
     @GetMapping(value = "valorations")
-    public List<Valoration> getValorarions(){return valorationService.getValorations();}
+    public List<Valoration> getValorarions(@RequestHeader("api-key") String apiKey){
+        validateApiKey(apiKey);
+        return valorationService.getValorations();}
 
     @GetMapping(value = "valorations/{id}")
-    public Valoration getValorarionById(@PathVariable Long id){return valorationService.getValorationById(id);}
+    public Valoration getValorarionById(@RequestHeader("api-key") String apiKey, @PathVariable Long id){
+        validateApiKey(apiKey);
+        return valorationService.getValorationById(id);}
 
     @GetMapping(value = "valorations/review/{id}")
-    public List<Valoration> getValorarionByReview(@PathVariable Long id){return valorationService.getValorationsOfReview(id);}
+    public List<Valoration> getValorarionByReview(@RequestHeader("api-key") String apiKey, @PathVariable Long id){
+        validateApiKey(apiKey);
+        return valorationService.getValorationsOfReview(id);}
 
     @PostMapping(value = "valoration")
-    public void newPremiumReview(@RequestBody Valoration valoration) {
+    public void newPremiumReview(@RequestHeader("api-key") String apiKey, @RequestBody Valoration valoration) {
+        validateApiKey(apiKey);
         valorationService.addValoration(valoration);
     }
 }
