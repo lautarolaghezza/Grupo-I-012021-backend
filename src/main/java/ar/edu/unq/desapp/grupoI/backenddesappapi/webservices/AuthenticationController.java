@@ -1,73 +1,43 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundException;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthServiceImpl;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
-import java.util.HashMap;
-
-
-
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 public class AuthenticationController {
 
     @Autowired
-    private UserService userService;
+    AuthServiceImpl authService;
+
     @PostMapping("register")
-    public UserAbs register(@RequestBody UserAbs userBody) {
-        String token = GenerateToken(userBody.getPassword());
-        UserAbs user = new UserAbs();
-        user.setNickname(userBody.getNickname());
-        user.setPassword(token);
-        userService.save(user);
-        return user;
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<PlatformUser> register(@RequestBody PlatformUser user) {
+        authService.registerUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PostMapping("login")
-    public UserAbs login(@RequestBody UserAbs userBody) {
-        UserAbs userLoaded = userService.findUserByNickname(userBody.getNickname());
+    public String login(@RequestBody PlatformUser user) {
+        PlatformUser userLoaded = authService.findUser(user.getNickname());
         System.out.println(userLoaded.getNickname());
         System.out.println(userLoaded.getPassword());
-        String token = GenerateToken(userBody.getPassword());
+        String token = authService.createToken(user);
         System.out.println(token);
         System.out.println(userLoaded.getPassword().equals(token));
-        if(userLoaded.getPassword().equals(token)){
-            return userLoaded;
-        }else{
-            throw new UserNotFoundException();
-        }
+        return token;
     }
 
-    public String GenerateToken(String password) {
-        try {
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.ES256;
-            //SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-            HashMap<String, Object> header = new HashMap<String, Object>();
-            header.put("alg", signatureAlgorithm.toString()); //HS256
-            header.put("typ", "JWT");
-            JwtBuilder tokenJWT = Jwts
-                    .builder()
-                    .setHeader(header)
-                    .setIssuer("resenia")
-                    .setId("reseniaJWT")
-                    .setSubject(password)
-                    .claim("name", password)
-                    .claim("scope", "authorities")
-                    .setIssuedAt(java.sql.Date.from(Instant.ofEpochSecond(1466796822L)));
-                    //.setExpiration(java.sql.Date.from(Instant.ofEpochSecond(4622470422L))).signWith(key);
-            String tokenJWTString = tokenJWT.compact();
-            System.out.println(tokenJWTString);
-            return tokenJWTString;
-        } catch (Exception e) {
-            System.out.println(e);
-            return "Error creating the token JWT" + e;
-        }
-    }
 }
+
+
+
+

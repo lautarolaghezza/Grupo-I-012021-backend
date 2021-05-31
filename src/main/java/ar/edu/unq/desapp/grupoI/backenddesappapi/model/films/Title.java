@@ -2,13 +2,19 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.films;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "tittle")
+@Entity
 public class Title extends Classifiable {
 
     @Column
@@ -43,75 +49,6 @@ public class Title extends Classifiable {
         this.startYear = startYear;
         this.endYear = endYear;
         this.runtimeMinutes = runtimeMinutes;
-        this.genres = genres;
-    }
-
-    public Title() {
-
-    }
-
-
-    public String getTitleType() {
-        return titleType;
-    }
-
-    public String getPrimaryTitle() {
-        return primaryTitle;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public Boolean getAdult() {
-        return isAdult;
-    }
-
-    public Integer getStartYear() {
-        return startYear;
-    }
-
-    public Integer getEndYear() {
-        return endYear;
-    }
-
-    public Integer getRuntimeMinutes() {
-        return runtimeMinutes;
-    }
-
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setTitleType(String titleType) {
-        this.titleType = titleType;
-    }
-
-    public void setPrimaryTitle(String primaryTitle) {
-        this.primaryTitle = primaryTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public void setAdult(Boolean adult) {
-        isAdult = adult;
-    }
-
-    public void setStartYear(Integer startYear) {
-        this.startYear = startYear;
-    }
-
-    public void setEndYear(Integer endYear) {
-        this.endYear = endYear;
-    }
-
-    public void setRuntimeMinutes(Integer runtimeMinutes) {
-        this.runtimeMinutes = runtimeMinutes;
-    }
-
-    public void setGenres(String genres) {
         this.genres = genres;
     }
 }

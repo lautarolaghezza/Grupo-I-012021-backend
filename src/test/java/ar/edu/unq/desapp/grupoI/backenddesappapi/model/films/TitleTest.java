@@ -34,7 +34,7 @@ public class TitleTest {
     @Test
     public void moviePDCHasNewPublicReviewWith4Stars() {
         PublicReview publicReview = new PublicReview();
-        publicReview.setRating(4);
+        //publicReview.setRating(4);
         reviews.add(publicReview);
 
         assertEquals(4, title.getRating());
@@ -43,9 +43,9 @@ public class TitleTest {
     @Test
     public void moviePDCHasNewPublicReviewWith4StarsIfHaveOneReviewWith5AndOtherWith3() {
         PublicReview publicReview = new PublicReview();
-        publicReview.setRating(3);
+        //publicReview.setRating(3);
         PremiumReview premiumReview = new PremiumReview();
-        premiumReview.setRating(5);
+        //premiumReview.setRating(5);
         reviews.add(publicReview);
         critics.add(premiumReview);
 
@@ -55,9 +55,9 @@ public class TitleTest {
     @Test
     public void moviePDCHasNewPublicReviewWith2p5StarsIfHaveOneReviewWith5AndOtherWith0() {
         PublicReview publicReview = new PublicReview();
-        publicReview.setRating(2);
+        //publicReview.setRating(2);
         PremiumReview premiumReview = new PremiumReview();
-        premiumReview.setRating(5);
+       //premiumReview.setRating(5);
         reviews.add(publicReview);
         critics.add(premiumReview);
 

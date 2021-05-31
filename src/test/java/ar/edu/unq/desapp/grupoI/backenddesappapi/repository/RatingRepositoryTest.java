@@ -26,7 +26,7 @@ public class RatingRepositoryTest {
 
     @Test void repositoryAddRating(){
         ratingRepository.addRating(rating2);
-        assertEquals(rating2.getTconst(), ratingRepository.getRating("rating2").get(0).getTconst());
+        assertEquals(rating2.getTittle_tconst(), ratingRepository.getRating("rating2").get(0).getTittle_tconst());
     }
     @Test void repositoryCantAddRating(){
         assertThrows(RatingHasBeenAddedException.class, ()-> this.ratingRepository.addRating(rating));
@@ -36,7 +36,7 @@ public class RatingRepositoryTest {
     }
 
     @Test void repositoryGetRating(){
-        assertEquals(rating.getTconst(), ratingRepository.getRating("rating1").get(0).getTconst());
+        assertEquals(rating.getTittle_tconst(), ratingRepository.getRating("rating1").get(0).getTittle_tconst());
     }
 
 }

@@ -102,11 +102,10 @@ public class ReviewService  {
     }
 
 
-    public List<Review> orderByRatingAsc(List<Review> reviews) {
+  /*  public List<Review> orderByRatingAsc(List<Review> reviews) {
         reviews.sort(Comparator.comparing(Review::getRating));
         return reviews;
     }
-
 
     public List<Review> orderByRatingDesc(List<Review> reviews) {
         reviews.sort(Comparator.comparing(Review::getRating));
@@ -126,7 +125,7 @@ public class ReviewService  {
         Collections.reverse(reviews);
         return reviews;
     }
-
+*/
 
 
 }
