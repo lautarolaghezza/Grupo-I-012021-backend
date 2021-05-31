@@ -26,7 +26,7 @@ public abstract class Classifiable {
     Double rating;
 
 
-    public Classifiable(String tconst, List<PremiumReview> critics, List<PublicReview> reviews) {
+    public Classifiable(String tconst) {
         this.tconst = tconst;
 
     }
@@ -40,10 +40,9 @@ public abstract class Classifiable {
     }
 
     public void addRating(List<Review> reviews) {
-        double totalRatingReviews = reviews.stream().mapToDouble(Review::getRatingId).sum();
+        double totalRatingReviews = reviews.stream().mapToDouble(Review::getRating).sum();
         int total = reviews.size();
-        double rating = totalRatingReviews / total;
-        this.rating = new BigDecimal(rating).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        this.rating = totalRatingReviews / total;
     }
 
 }

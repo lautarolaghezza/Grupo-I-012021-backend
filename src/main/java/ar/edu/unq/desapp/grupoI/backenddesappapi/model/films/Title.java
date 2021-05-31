@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.films;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import lombok.Getter;
@@ -41,7 +42,7 @@ public class Title extends Classifiable {
                  Integer startYear, Integer endYear, Integer runtimeMinutes,
                  String genres, List<PremiumReview> critics,
                  List<PublicReview> reviews) {
-        super(tconst, critics, reviews);
+        super(tconst);
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;
@@ -50,5 +51,17 @@ public class Title extends Classifiable {
         this.endYear = endYear;
         this.runtimeMinutes = runtimeMinutes;
         this.genres = genres;
+    }
+
+    public Title(InverseSearchDTO inverseSearchDTO) {
+        super(inverseSearchDTO.getTconst());
+        this.titleType = inverseSearchDTO.getTitleType();
+        this.primaryTitle = inverseSearchDTO.getPrimaryTitle();
+        this.originalTitle = inverseSearchDTO.getOriginalTitle();
+        this.isAdult = inverseSearchDTO.getIsAdult();
+        this.startYear = inverseSearchDTO.getStartYear();
+        this.endYear = inverseSearchDTO.getEndYear();
+        this.runtimeMinutes = inverseSearchDTO.getRuntimeMinutes();
+        this.genres = inverseSearchDTO.getGenres();
     }
 }

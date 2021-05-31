@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Classifiable;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
@@ -16,7 +17,7 @@ public interface TitleService {
 
     List<Title> findAll();
 
-    public List<Title> findReviewsMatch(Title title);
+    public List<Title> findReviewsMatch(InverseSearchDTO inverseSearchDTO);
 
     Title findById(String id);
 }

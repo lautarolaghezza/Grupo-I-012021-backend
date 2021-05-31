@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -25,7 +24,7 @@ abstract public class Review {
     @Column
     private String extendedText;
     @Column
-    private float ratingId;
+    private float rating;
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date date;
@@ -43,7 +42,7 @@ abstract public class Review {
         this.extendedText = reviewDTO.extendedText;
         this.resume = reviewDTO.resume;
         this.language = reviewDTO.language;
-        this.ratingId = reviewDTO.ratingId;
+        this.rating = reviewDTO.rating;
         this.userId = reviewDTO.userId;
         this.userAbs = reviewDTO.userAbs;
     }
@@ -56,7 +55,7 @@ abstract public class Review {
         this.tittle_tconst = tittle_tconst;
         this.resume = resume;
         this.extendedText = extendedText;
-        this.ratingId = ratingId;
+        this.rating = rating;
         this.date = date;
         this.language = language;
         this.userId = userAbs.getId();

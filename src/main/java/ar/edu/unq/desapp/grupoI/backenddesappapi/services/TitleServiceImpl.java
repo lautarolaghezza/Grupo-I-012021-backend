@@ -1,10 +1,15 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Classifiable;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Crew;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Principals;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.TitleRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.CrewRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.PrincipalsRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,7 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TitleServiceImpl implements TitleService {
@@ -23,6 +30,12 @@ public class TitleServiceImpl implements TitleService {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    @Autowired
+    private CrewRepository crewRepository;
+
+    @Autowired
+    private PrincipalsRepository principalsRepository;
 
     public TitleServiceImpl(TitleRepository titleRepository) {
         this.titleRepository = titleRepository;
@@ -57,11 +70,39 @@ public class TitleServiceImpl implements TitleService {
         return titles;
     }
 
-    public List<Title> findReviewsMatch(Title title) {
-        //return titleRepository.findReviewsMatch(title);
+    public List<Title> findReviewsMatch(InverseSearchDTO inverseSearchDTO) {
+        Title title = new Title(inverseSearchDTO);
+        Crew crew = new Crew(inverseSearchDTO);
+        Principals principals = new Principals(inverseSearchDTO);
+
         Example<Title> titlesExample = Example.of(title, ExampleMatcher.matchingAny());
-        return iterableToList(titleRepository.findAll(titlesExample));
+        Example<Crew> crewExample = Example.of(crew, ExampleMatcher.matchingAny());
+        Example<Principals> principalsExample = Example.of(principals, ExampleMatcher.matchingAny());
+
+        List<Title> titles = titleRepository.findAll(titlesExample);
+        List<Crew> crews = crewRepository.findAll(crewExample);
+        List<Principals> principalsList = principalsRepository.findAll(principalsExample);
+
+        Set<String> tconsts = this.combineTitles(titles,crews,principalsList);
+
+        return iterableToList(titleRepository.findAllById(tconsts));
     }
+
+    private Set<String> combineTitles(List<Title> titles, List<Crew> crews, List<Principals> principalsList) {
+        Set<String> tconsts = new HashSet<>();
+        for (Title title: titles) {
+            tconsts.add(title.getTconst());
+        }
+        for (Crew crew : crews){
+            tconsts.add(crew.getTconst());
+        }
+        for (Principals princpals: principalsList){
+            tconsts.add(princpals.getTconst());
+        }
+        return tconsts;
+    }
+
+
 
     @Override
     public Title findById(String id) {

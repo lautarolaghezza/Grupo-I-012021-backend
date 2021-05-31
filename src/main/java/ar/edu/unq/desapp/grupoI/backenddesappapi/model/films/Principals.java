@@ -1,15 +1,23 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.films;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 
-@Table(name ="principals")
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "principals")
 @Entity
 public class Principals {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column
     private String tconst;
     @Column
     private Integer ordering;
@@ -22,27 +30,13 @@ public class Principals {
     @Column
     private String characters;
 
-    public String getTconst() {
-        return tconst;
+    public Principals(InverseSearchDTO inverseSearchDTO) {
+        this.tconst = inverseSearchDTO.getTconst();
+        this.ordering = inverseSearchDTO.getOrdering();
+        this.nconst = inverseSearchDTO.getNconst();
+        this.category = inverseSearchDTO.getCategory();
+        this.job = inverseSearchDTO.getJob();
+        this.characters = inverseSearchDTO.getCharacters();
     }
 
-    public Integer getOrdering() {
-        return ordering;
-    }
-
-    public String getNconst() {
-        return nconst;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getCharacters() {
-        return characters;
-    }
 }

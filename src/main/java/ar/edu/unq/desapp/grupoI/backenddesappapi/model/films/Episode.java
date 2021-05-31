@@ -20,7 +20,7 @@ public class Episode extends Classifiable {
 
     public Episode(String tconst, String parentTconst, Integer seasonNumber, Integer episodeNumber,
                    List<PremiumReview> critics, List<PublicReview> reviews) {
-        super(tconst, critics, reviews);
+        super(tconst);
         this.parentTconst = parentTconst;
         this.seasonNumber = seasonNumber;
         this.episodeNumber = episodeNumber;

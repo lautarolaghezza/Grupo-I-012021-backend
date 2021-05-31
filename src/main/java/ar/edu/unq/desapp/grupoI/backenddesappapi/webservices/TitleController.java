@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthServiceImpl;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.TitleService;
@@ -19,10 +20,9 @@ public class TitleController extends BaseController {
     private TitleService titleService;
 
     @GetMapping(value = "titles")
-    public ResponseEntity<List<Title>> findAll(@RequestHeader("api-key") String apiKey) {
+    public List<Title> findAll(@RequestHeader("api-key") String apiKey) {
         validateApiKey(apiKey);
-        List<Title> titles = titleService.findAll();
-        return new ResponseEntity<>(titles, HttpStatus.OK);
+        return titleService.findAll();
     }
 
     @GetMapping(value = "title/{id}")
@@ -32,9 +32,9 @@ public class TitleController extends BaseController {
     }
 
     @GetMapping(value = "titles/findAny")
-    public List<Title> getTitlesMatch(@RequestHeader("api-key") String apiKey, @RequestBody Title title) {
+    public List<Title> getTitlesMatch(@RequestHeader("api-key") String apiKey, @RequestBody InverseSearchDTO inverseSearchDTO) {
         validateApiKey(apiKey);
-        return titleService.findReviewsMatch(title);
+        return titleService.findReviewsMatch(inverseSearchDTO);
     }
 
 }
