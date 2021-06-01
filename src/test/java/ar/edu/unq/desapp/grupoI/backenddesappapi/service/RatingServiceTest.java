@@ -24,14 +24,14 @@ public class RatingServiceTest {
     @Test
     public void getAllRatingsTest(){
         Assertions.assertEquals(1, ratingService.getAllRatings().size());
-        Assertions.assertEquals("PDC2", ratingService.getAllRatings().get(0).getTconst());
+        Assertions.assertEquals("PDC2", ratingService.getAllRatings().get(0).getTittle_tconst());
         Assertions.assertEquals(4, ratingService.getAllRatings().get(0).getAverageRating());
         Assertions.assertEquals(5, ratingService.getAllRatings().get(0).getNumVotes());
     }
 
     @Test
     public void getRatingTest(){
-        Assertions.assertEquals("PDC2", ratingService.getRatings("PDC2").get(0).getTconst());
+        Assertions.assertEquals("PDC2", ratingService.getRatings("PDC2").get(0).getTittle_tconst());
     }
 
     @Test

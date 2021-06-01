@@ -62,4 +62,5 @@ abstract public class Review {
         this.userAbs = userAbs;
     }
 
+    public abstract boolean isPublicReview();
 }

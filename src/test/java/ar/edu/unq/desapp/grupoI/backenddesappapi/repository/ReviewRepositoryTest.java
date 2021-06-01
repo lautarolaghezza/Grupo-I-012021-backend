@@ -1,22 +1,5 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.repository;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewHasBeenAddedException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Critic;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepositoryImpl;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

@@ -21,10 +21,10 @@ public class RatingRepositoryImpl implements  RatingRepository{
         return ratings;
     }
 
-    @Override
+   @Override
     public List<Rating> getRating(String tittle_tconst) {
         return ratings.stream()
-                .filter( r -> r.getTconst().equalsIgnoreCase(tittle_tconst))
+                .filter( r -> r.getTittle_tconst().equalsIgnoreCase(tittle_tconst))
                 .collect(Collectors.toList());
     }
 
@@ -32,9 +32,11 @@ public class RatingRepositoryImpl implements  RatingRepository{
     public void addRating(Rating rating) {
         boolean isAdded = this.ratings
                 .stream()
-                .anyMatch(r -> r.getTconst()
-                        .equalsIgnoreCase(rating.getTconst()));
+                .anyMatch(r -> r.getTittle_tconst()
+                        .equalsIgnoreCase(rating.getTittle_tconst()));
         if (isAdded) throw new RatingHasBeenAddedException();
         this.ratings.add(rating);
     }
+
+
 }

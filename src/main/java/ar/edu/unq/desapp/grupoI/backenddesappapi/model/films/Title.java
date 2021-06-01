@@ -1,14 +1,21 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.films;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "tittle")
+@Entity
 public class Title extends Classifiable {
 
     @Column
@@ -29,13 +36,12 @@ public class Title extends Classifiable {
     private String genres;
 
 
-
     public Title(String tconst, String titleType, String primaryTitle,
                  String originalTitle, Boolean isAdult,
                  Integer startYear, Integer endYear, Integer runtimeMinutes,
                  String genres, List<PremiumReview> critics,
                  List<PublicReview> reviews) {
-        super(tconst, critics, reviews);
+        super(tconst);
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;
@@ -46,72 +52,27 @@ public class Title extends Classifiable {
         this.genres = genres;
     }
 
-    public Title() {
-
+    public Title(InverseSearchDTO inverseSearchDTO) {
+        super(inverseSearchDTO.getTconst());
+        this.titleType = inverseSearchDTO.getTitleType();
+        this.primaryTitle = inverseSearchDTO.getPrimaryTitle();
+        this.originalTitle = inverseSearchDTO.getOriginalTitle();
+        this.isAdult = inverseSearchDTO.getIsAdult();
+        this.startYear = inverseSearchDTO.getStartYear();
+        this.endYear = inverseSearchDTO.getEndYear();
+        this.runtimeMinutes = inverseSearchDTO.getRuntimeMinutes();
+        this.genres = inverseSearchDTO.getGenres();
     }
 
-
-    public String getTitleType() {
-        return titleType;
-    }
-
-    public String getPrimaryTitle() {
-        return primaryTitle;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public Boolean getAdult() {
-        return isAdult;
-    }
-
-    public Integer getStartYear() {
-        return startYear;
-    }
-
-    public Integer getEndYear() {
-        return endYear;
-    }
-
-    public Integer getRuntimeMinutes() {
-        return runtimeMinutes;
-    }
-
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setTitleType(String titleType) {
-        this.titleType = titleType;
-    }
-
-    public void setPrimaryTitle(String primaryTitle) {
-        this.primaryTitle = primaryTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public void setAdult(Boolean adult) {
-        isAdult = adult;
-    }
-
-    public void setStartYear(Integer startYear) {
-        this.startYear = startYear;
-    }
-
-    public void setEndYear(Integer endYear) {
-        this.endYear = endYear;
-    }
-
-    public void setRuntimeMinutes(Integer runtimeMinutes) {
-        this.runtimeMinutes = runtimeMinutes;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres;
+    public boolean allAttrNull() {
+        return (this.tconst == null &&
+                this.titleType == null &&
+                this.primaryTitle == null &&
+                this.originalTitle == null &&
+                this.isAdult == null &&
+                this.startYear == null &&
+                this.endYear == null &&
+                this.runtimeMinutes == null &&
+                this.genres == null);
     }
 }

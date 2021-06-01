@@ -3,63 +3,46 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.films;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name="Classifiable")
+@Table(name = "Classifiable")
 public abstract class Classifiable {
 
     @Id
-    private String tconst;
+    protected String tconst;
 
-    @Transient
-    private List<PremiumReview> critics;
-    @Transient
-    private List<PublicReview> reviews;
+    @Column
+    Double rating;
 
-    public Classifiable() {
-    }
 
-    public Classifiable(String tconst, List<PremiumReview> critics, List<PublicReview> reviews) {
+    public Classifiable(String tconst) {
         this.tconst = tconst;
-        this.critics = critics;
-        this.reviews = reviews;
+
     }
 
     public double getRating() {
-        double totalRatingReviews = reviews.stream().mapToDouble(Review::getRating).sum();
-        double totalRatingCritics = critics.stream().mapToDouble(Review::getRating).sum();
-        int total = reviews.size() + critics.size();
+        double totalRatingReviews = 1.1;
+        double totalRatingCritics = 2.2;
+        int total = 2;
 
         return (totalRatingCritics + totalRatingReviews) / total;
     }
 
-    public String getTconst() {
-        return tconst;
+    public void addRating(List<Review> reviews) {
+        double totalRatingReviews = reviews.stream().mapToDouble(Review::getRating).sum();
+        int total = reviews.size();
+        this.rating = totalRatingReviews / total;
     }
 
-    public List<PremiumReview> getCritics() {
-        return critics;
-    }
-
-    public List<PublicReview> getReviews() {
-        return reviews;
-    }
-
-    public void setTconst(String tconst) {
-        this.tconst = tconst;
-    }
-
-    public void setCritics(List<PremiumReview> critics) {
-        this.critics = critics;
-    }
-
-    public void setReviews(List<PublicReview> reviews) {
-        this.reviews = reviews;
-    }
 }

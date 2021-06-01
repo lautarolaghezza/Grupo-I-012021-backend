@@ -36,5 +36,7 @@ public class UserService {
 
     public List<UserAbs> findUserByTypeUser(String typeUser){ return userRepository.findUserByTypeUser(typeUser.toUpperCase());}
 
+    public UserAbs findUserByNickname(String nickname){ return userRepository.findUserByNickname(nickname);}
+
     public UserAbs save(UserAbs userAbs){ return this.userRepository.save(userAbs);}
 }

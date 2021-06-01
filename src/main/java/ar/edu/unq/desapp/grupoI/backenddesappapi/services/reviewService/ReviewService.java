@@ -4,7 +4,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.CommonUserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
@@ -12,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 //import ar.edu.unq.desapp.grupoXXX.backenddesappapi.repositories.review.ReviewRepositoryImpl;
@@ -39,7 +39,7 @@ public class ReviewService  {
         return reviews;
     }
 
-    public Review findById(String id){
+    public Review findById(Long id){
         return this.reviewRepository.findById(id).orElseThrow(ReviewsNotFoundException::new);
     }
 
@@ -60,12 +60,7 @@ public class ReviewService  {
             return result;
         }
     }
-    @Transactional
-    public Review save(CommonUserAbs user, Review review) {
-        review.setUserAbs(user);
-        return this.reviewRepository.save(review);
-    }
-    public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+    public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters)  {
         List<Filter> filterList = this.convertMapToListFilter(filters);
         List<UserAbs> userAbsList = userService.findAll();
         List<Review> result = iterableToList(reviewRepository.findAll());
@@ -74,8 +69,14 @@ public class ReviewService  {
         }
         return result;
     }
+    @Transactional
+    public Review save(UserAbs user, Review review) {
+        review.setUserAbs(user);
+        return this.reviewRepository.save(review);
+    }
 
-    private List<Filter> convertMapToListFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+
+    private List<Filter> convertMapToListFilter(LinkedHashMap<String, String> filters) {
     List<Filter> listFilter= new ArrayList<>();
     System.out.println(filters);
     for (String filter :  filters.keySet()){
@@ -90,24 +91,22 @@ public class ReviewService  {
             case "platform":
                 listFilter.add(new PlatformFilter(filters.get("platform")));
                 break;
-            case "spoilerAlert":
-                listFilter.add(new SpoilerAlertFilter(filters.get("spoilerAlert").equalsIgnoreCase("true")));
+            case "spoiler_alert":
+                listFilter.add(new SpoilerAlertFilter(filters.get("spoiler_alert").equalsIgnoreCase("true")));
                 break;
             case "typeUser":
                 listFilter.add(new TypeUserFilter(filters.get("typeUser")));
                 break;
-            default: throw new FileNotFoundException();
         }
     }
     return  listFilter;
     }
 
 
-    public List<Review> orderByRatingAsc(List<Review> reviews) {
+  /*  public List<Review> orderByRatingAsc(List<Review> reviews) {
         reviews.sort(Comparator.comparing(Review::getRating));
         return reviews;
     }
-
 
     public List<Review> orderByRatingDesc(List<Review> reviews) {
         reviews.sort(Comparator.comparing(Review::getRating));
@@ -127,7 +126,7 @@ public class ReviewService  {
         Collections.reverse(reviews);
         return reviews;
     }
-
+*/
 
 
 }

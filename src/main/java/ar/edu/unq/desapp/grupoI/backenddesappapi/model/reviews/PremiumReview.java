@@ -54,4 +54,8 @@ public class PremiumReview extends Review {
         this.critic_id = critic_id;
     }
 
+    @Override
+    public boolean isPublicReview() {
+        return false;
+    }
 }
