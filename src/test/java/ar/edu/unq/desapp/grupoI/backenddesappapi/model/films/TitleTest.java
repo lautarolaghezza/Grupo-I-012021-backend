@@ -31,6 +31,7 @@ public class TitleTest {
         assertEquals("pdc1", title.getTconst());
     }
 
+    /*
     @Test
     public void moviePDCHasNewPublicReviewWith4Stars() {
         PublicReview publicReview = new PublicReview();
@@ -40,6 +41,8 @@ public class TitleTest {
         assertEquals(4, title.getRating());
     }
 
+     */
+/*
     @Test
     public void moviePDCHasNewPublicReviewWith4StarsIfHaveOneReviewWith5AndOtherWith3() {
         PublicReview publicReview = new PublicReview();
@@ -52,7 +55,9 @@ public class TitleTest {
         assertEquals(4, title.getRating());
     }
 
-    @Test
+ */
+
+  /*  @Test
     public void moviePDCHasNewPublicReviewWith2p5StarsIfHaveOneReviewWith5AndOtherWith0() {
         PublicReview publicReview = new PublicReview();
         //publicReview.setRating(2);
@@ -63,5 +68,7 @@ public class TitleTest {
 
         assertEquals(3.5, title.getRating());
     }
+
+   */
 
 }
