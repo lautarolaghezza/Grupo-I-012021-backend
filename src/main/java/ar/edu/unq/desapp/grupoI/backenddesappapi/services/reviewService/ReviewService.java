@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 //import ar.edu.unq.desapp.grupoXXX.backenddesappapi.repositories.review.ReviewRepositoryImpl;
@@ -59,12 +60,7 @@ public class ReviewService  {
             return result;
         }
     }
-    @Transactional
-    public Review save(UserAbs user, Review review) {
-        review.setUserAbs(user);
-        return this.reviewRepository.save(review);
-    }
-    public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+    public List<Review> getReviewsWithFilter(LinkedHashMap<String, String> filters)  {
         List<Filter> filterList = this.convertMapToListFilter(filters);
         List<UserAbs> userAbsList = userService.findAll();
         List<Review> result = iterableToList(reviewRepository.findAll());
@@ -73,8 +69,14 @@ public class ReviewService  {
         }
         return result;
     }
+    @Transactional
+    public Review save(UserAbs user, Review review) {
+        review.setUserAbs(user);
+        return this.reviewRepository.save(review);
+    }
 
-    private List<Filter> convertMapToListFilter(LinkedHashMap<String, String> filters) throws FileNotFoundException {
+
+    private List<Filter> convertMapToListFilter(LinkedHashMap<String, String> filters) {
     List<Filter> listFilter= new ArrayList<>();
     System.out.println(filters);
     for (String filter :  filters.keySet()){
@@ -95,7 +97,6 @@ public class ReviewService  {
             case "typeUser":
                 listFilter.add(new TypeUserFilter(filters.get("typeUser")));
                 break;
-            default: throw new FileNotFoundException();
         }
     }
     return  listFilter;

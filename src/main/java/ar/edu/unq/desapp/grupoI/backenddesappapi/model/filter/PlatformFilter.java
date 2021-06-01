@@ -21,9 +21,9 @@ public final class PlatformFilter extends  Filter{
                 .stream()
                 .filter( r -> userAbsList
                                     .stream()
-                                    .filter(u -> u.getId() == r.getUserId())
+                                    .filter(u -> u.getId().equals(r.getUserId()))
                                     .collect(Collectors.toList())
-                                    .get(0).getPlatform() == this.platform)
+                                    .get(0).getPlatform().equals(this.platform))
                 .collect(Collectors.toList());
     }
 

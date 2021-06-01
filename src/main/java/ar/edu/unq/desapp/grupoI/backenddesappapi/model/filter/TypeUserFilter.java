@@ -17,13 +17,14 @@ public final class TypeUserFilter extends Filter{
 
     @Override
     public List<Review> doFilter(List<Review> reviews, List<UserAbs> userAbsList) {
+
         return reviews
                 .stream()
                 .filter( r -> userAbsList
                         .stream()
-                        .filter(u -> u.getId() == r.getUserId())
+                        .filter(u -> u.getId().equals(r.getUserId()))
                         .collect(Collectors.toList())
-                        .get(0).getType_user()== this.type_user)
+                        .get(0).getType_user().equals(this.type_user))
                 .collect(Collectors.toList());
     }
 
