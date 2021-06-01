@@ -6,3 +6,8 @@ INSERT INTO principals (category, characters, job, nconst, ordering, tconst) val
 
 INSERT INTO crew (tconst, directors, writers) values ('pdc1', 'gore verbinski', 'ted elliot');
 INSERT INTO crew (tconst, directors, writers) values ('pdc2', 'gore verbinski', 'ted elliot');
+
+INSERT INTO user_table (critic_id, location, nickname, password, platform, type_user) values (1, 'usa', 'emma', 'asd123', 'DISNEY_PLUS', 'CRITIC');
+INSERT INTO user_table (critic_id, location, nickname, password, platform, type_user) values (null, 'usa', 'john', 'asd123', 'DISNEY_PLUS', 'COMMON');
+INSERT INTO user_table (critic_id, location, nickname, password, platform, type_user) values (2, 'arg', 'juana', 'asd123', 'NETFLIX', 'CRITIC');
+INSERT INTO user_table (critic_id, location, nickname, password, platform, type_user) values (null, 'arg', 'raulito', 'asd123', 'NETFLIX', 'COMMON');

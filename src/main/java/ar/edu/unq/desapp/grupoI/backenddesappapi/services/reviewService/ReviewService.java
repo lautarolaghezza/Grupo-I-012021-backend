@@ -39,7 +39,7 @@ public class ReviewService  {
         return reviews;
     }
 
-    public Review findById(String id){
+    public Review findById(Long id){
         return this.reviewRepository.findById(id).orElseThrow(ReviewsNotFoundException::new);
     }
 
@@ -91,8 +91,8 @@ public class ReviewService  {
             case "platform":
                 listFilter.add(new PlatformFilter(filters.get("platform")));
                 break;
-            case "spoilerAlert":
-                listFilter.add(new SpoilerAlertFilter(filters.get("spoilerAlert").equalsIgnoreCase("true")));
+            case "spoiler_alert":
+                listFilter.add(new SpoilerAlertFilter(filters.get("spoiler_alert").equalsIgnoreCase("true")));
                 break;
             case "typeUser":
                 listFilter.add(new TypeUserFilter(filters.get("typeUser")));

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Configuration
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, String> {
+public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 
     @Query(value ="SELECT * FROM review r WHERE r.tittle_tconst = :tconst", nativeQuery = true)

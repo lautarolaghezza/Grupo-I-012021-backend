@@ -37,4 +37,9 @@ public class PublicReview extends Review {
     public PublicReview(PublicReview reviewDTO) {
         super(reviewDTO);
     }
+
+    @Override
+    public boolean isPublicReview() {
+        return true;
+    }
 }

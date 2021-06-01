@@ -20,7 +20,7 @@ public final class SpoilerAlertFilter extends Filter{
     public List<Review> doFilter(List<Review> reviews, List<UserAbs> userAbsList) {
         return reviews
                                 .stream()
-                                .filter( r -> ((PublicReview) r).isSpoiler_Alert()== this.spoilerAlert)
+                                .filter( r -> r.isPublicReview() && ((PublicReview) r).isSpoiler_Alert() == this.spoilerAlert)
                                 .collect(Collectors.toList());
     }
 

@@ -28,7 +28,7 @@ public class ReviewController extends BaseController {
     }
 
     @GetMapping(value = "review/{id}")
-    public Review getReview(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
+    public Review getReview(@RequestHeader("api-key") String apiKey, @PathVariable Long id) {
         validateApiKey(apiKey);
         return reviewService.findById(id);
     }
