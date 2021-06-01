@@ -1,3 +1,5 @@
-INSERT INTO review (dtype, tittle_tconst, rating, resume, language, date, extended_text, user_id, spoiler_alert) values('PublicReview','pdc1','4','buenisima peli','spanish','04/05/2021','pelicula muy buena',1,false)
+INSERT INTO classifiable (dtype, tconst, title_type, primary_title, original_title, is_adult, runtime_minutes, start_year, end_year, genres) values('Title','pdc1','movie','Piratas del caribe 1','Pirates of the caribbean',false, 120 , 2010, 2011, 'action,drama');
 
-INSERT INTO review (dtype, tittle_tconst, rating, resume, language, date, extended_text, user_id, critic_id) values('PremiumReview','pdc1','4','buenisima peli','english','04/05/2021','pelicula muy buena',1,2)
+INSERT INTO principals (category, characters, job, nconst, ordering, tconst) values ('action', 'robert de niro', 'empleado', 'rdn', 1, 'pdc1');
+
+INSERT INTO crew (tconst, directors, writers) values ('pdc1', 'alpacino', 'alpacino escritor');
