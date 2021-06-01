@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TitleServiceImpl implements TitleService {
@@ -100,7 +101,7 @@ public class TitleServiceImpl implements TitleService {
     }
 
     private Set<String> combineTitles(List<Title> titles, List<Crew> crews, List<Principals> principalsList) {
-        Set<String> tconsts = new HashSet<>();
+        List<String> tconsts = new ArrayList<>();
         for (Title title: titles) {
             tconsts.add(title.getTconst());
         }
@@ -110,7 +111,23 @@ public class TitleServiceImpl implements TitleService {
         for (Principals princpals: principalsList){
             tconsts.add(princpals.getTconst());
         }
-        return tconsts;
+
+        return findDuplicates(tconsts);
+    }
+
+    public Set<String> findDuplicates(List<String> listContainingDuplicates)
+    {
+        final Set<String> setToReturn = new HashSet<>();
+        final Set<String> set1 = new HashSet<>();
+
+        for (String tconst : listContainingDuplicates)
+        {
+            if (!set1.add(tconst))
+            {
+                setToReturn.add(tconst);
+            }
+        }
+        return setToReturn;
     }
 
 
