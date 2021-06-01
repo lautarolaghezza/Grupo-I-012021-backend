@@ -36,7 +36,6 @@ public class Title extends Classifiable {
     private String genres;
 
 
-
     public Title(String tconst, String titleType, String primaryTitle,
                  String originalTitle, Boolean isAdult,
                  Integer startYear, Integer endYear, Integer runtimeMinutes,
@@ -63,5 +62,17 @@ public class Title extends Classifiable {
         this.endYear = inverseSearchDTO.getEndYear();
         this.runtimeMinutes = inverseSearchDTO.getRuntimeMinutes();
         this.genres = inverseSearchDTO.getGenres();
+    }
+
+    public boolean allAttrNull() {
+        return (this.tconst == null &&
+                this.titleType == null &&
+                this.primaryTitle == null &&
+                this.originalTitle == null &&
+                this.isAdult == null &&
+                this.startYear == null &&
+                this.endYear == null &&
+                this.runtimeMinutes == null &&
+                this.genres == null);
     }
 }

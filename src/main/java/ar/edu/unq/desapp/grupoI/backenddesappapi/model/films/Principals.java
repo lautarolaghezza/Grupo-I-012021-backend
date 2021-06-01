@@ -39,4 +39,8 @@ public class Principals {
         this.characters = inverseSearchDTO.getCharacters();
     }
 
+    public boolean allAttrNull() {
+        return (this.tconst == null && this.ordering == null && this.nconst == null && this.category == null &&
+                this.job == null && this.characters == null);
+    }
 }

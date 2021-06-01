@@ -79,9 +79,20 @@ public class TitleServiceImpl implements TitleService {
         Example<Crew> crewExample = Example.of(crew, ExampleMatcher.matchingAny());
         Example<Principals> principalsExample = Example.of(principals, ExampleMatcher.matchingAny());
 
-        List<Title> titles = titleRepository.findAll(titlesExample);
-        List<Crew> crews = crewRepository.findAll(crewExample);
-        List<Principals> principalsList = principalsRepository.findAll(principalsExample);
+        List<Title> titles = new ArrayList<>();
+        List<Crew> crews = new ArrayList<>();
+        List<Principals> principalsList = new ArrayList<>();
+
+        if(!title.allAttrNull()){
+            titles = titleRepository.findAll(titlesExample);
+        }
+        if(!crew.allAttrNull()) {
+            crews = crewRepository.findAll(crewExample);
+        }
+
+        if(!principals.allAttrNull()) {
+            principalsList = principalsRepository.findAll(principalsExample);
+        }
 
         Set<String> tconsts = this.combineTitles(titles,crews,principalsList);
 

@@ -27,4 +27,7 @@ public class Crew {
         this.writers = inverseSearchDTO.getWriters();
     }
 
+    public boolean allAttrNull() {
+        return (this.tconst == null && this.directors == null && this.writers == null);
+    }
 }
