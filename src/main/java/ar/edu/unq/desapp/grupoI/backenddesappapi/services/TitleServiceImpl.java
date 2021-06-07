@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleNotFoundException;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Classifiable;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Crew;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Principals;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
@@ -14,14 +13,9 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class TitleServiceImpl implements TitleService {
@@ -62,7 +56,7 @@ public class TitleServiceImpl implements TitleService {
         return iterableToList(titleRepository.findAll());
     }
 
-    private List<Title> iterableToList(Iterable<Title> iterable){
+    private List<Title> iterableToList(Iterable<Title> iterable) {
         List<Title> titles = new ArrayList<>();
         for (Title title : iterable) {
             title.addRating(reviewRepository.findReviewsForTitle(title.getTconst()));
@@ -84,54 +78,53 @@ public class TitleServiceImpl implements TitleService {
         List<Crew> crews = new ArrayList<>();
         List<Principals> principalsList = new ArrayList<>();
 
-        if(!title.allAttrNull()){
+        if (!title.allAttrNull()) {
             titles = titleRepository.findAll(titlesExample);
         }
-        if(!crew.allAttrNull()) {
+        if (!crew.allAttrNull()) {
             crews = crewRepository.findAll(crewExample);
         }
 
-        if(!principals.allAttrNull()) {
+        if (!principals.allAttrNull()) {
             principalsList = principalsRepository.findAll(principalsExample);
         }
 
-        Set<String> tconsts = this.combineTitles(titles,crews,principalsList);
+        Set<String> tconsts = this.combineTitles(titles, crews, principalsList);
 
         return iterableToList(titleRepository.findAllById(tconsts));
     }
 
     private Set<String> combineTitles(List<Title> titles, List<Crew> crews, List<Principals> principalsList) {
-        List<String> tconsts = new ArrayList<>();
-        for (Title title: titles) {
-            tconsts.add(title.getTconst());
+        List<String> titleTconsts = new ArrayList<>();
+        List<String> principalTconsts = new ArrayList<>();
+        List<String> writersTconsts = new ArrayList<>();
+        for (Title title : titles) {
+            titleTconsts.add(title.getTconst());
         }
-        for (Crew crew : crews){
-            tconsts.add(crew.getTconst());
+        for (Crew crew : crews) {
+            principalTconsts.add(crew.getTconst());
         }
-        for (Principals princpals: principalsList){
-            tconsts.add(princpals.getTconst());
+        for (Principals princpals : principalsList) {
+            writersTconsts.add(princpals.getTconst());
         }
-
-        return findDuplicates(tconsts);
+        return intersection(titleTconsts, principalTconsts, writersTconsts);
     }
 
-    public Set<String> findDuplicates(List<String> listContainingDuplicates)
-    {
-        final Set<String> setToReturn = new HashSet<>();
-        final Set<String> set1 = new HashSet<>();
-
-        for (String tconst : listContainingDuplicates)
-        {
-            if (!set1.add(tconst))
-            {
-                setToReturn.add(tconst);
-            }
+    private Set<String> intersection(List<String>... titlesToJoin) {
+        List<List<String>> titles = new ArrayList<>();
+        for (List<String> tconstList : titlesToJoin) {
+            if (!tconstList.isEmpty()) titles.add(tconstList);
         }
-        return setToReturn;
+        Set<String> intersectionTitles = new HashSet<>(titles.get(0));
+
+        for (int i = 1; i < titles.size(); i++) {
+            HashSet<String> set = new HashSet<>(titles.get(i));
+            intersectionTitles.retainAll(set);
+        }
+
+        return intersectionTitles;
     }
-
-
-
+    
     @Override
     public Title findById(String id) {
         return titleRepository.findById(id).orElseThrow(TitleNotFoundException::new);
