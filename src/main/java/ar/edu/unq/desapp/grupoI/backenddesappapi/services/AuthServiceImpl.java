@@ -26,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public PlatformUser registerUser(PlatformUser user) {
+        user.setPassword(tokenProvider.createToken(user));
         return userService.save(user);
     }
 

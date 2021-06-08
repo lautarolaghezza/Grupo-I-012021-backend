@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController extends BaseController {
 
     @PostMapping("register")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<PlatformUser> register(@RequestBody PlatformUser user) {
         authService.registerUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -23,7 +22,7 @@ public class AuthenticationController extends BaseController {
         System.out.println(userLoaded.getPassword());
         String token = authService.createToken(user);
         System.out.println(token);
-        System.out.println(userLoaded.getPassword().equals(token));
+        System.out.println(userLoaded.getPassword());
         return token;
     }
 
