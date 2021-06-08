@@ -124,7 +124,7 @@ public class TitleServiceImpl implements TitleService {
 
         return intersectionTitles;
     }
-    
+
     @Override
     public Title findById(String id) {
         return titleRepository.findById(id).orElseThrow(TitleNotFoundException::new);

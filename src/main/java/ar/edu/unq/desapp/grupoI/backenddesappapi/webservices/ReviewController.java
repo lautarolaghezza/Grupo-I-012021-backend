@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
@@ -41,12 +42,18 @@ public class ReviewController extends BaseController {
     }
     @GetMapping(value = "review/filters")
     public List<Review> getReviewsWithFilters(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
-        //System.out.println(filters.getClass());
         validateApiKey(apiKey);
         return reviewService.getReviewsWithFilter(filters);
     }
 
-    @PostMapping(value = "/publicReview")
+    @GetMapping(value="review/orderBy")
+    public List<Review> getReviewsByRating(@RequestHeader("api-key") String apiKey, @RequestBody ReviewOrderDTO reviewOrder) throws FileNotFoundException {
+       validateApiKey(apiKey);
+       return reviewService.getReviewsWithOrder(reviewOrder);
+    }
+
+
+        @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestHeader("api-key") String apiKey, @RequestBody PublicReview review) {
         validateApiKey(apiKey);
         UserAbs user = new UserAbs();
@@ -60,11 +67,6 @@ public class ReviewController extends BaseController {
         UserAbs user = new UserAbs();
         user.setId(review.getUserId());
         return reviewService.save(user, review);
-    }
-
-    @GetMapping(value = "/hello")
-    public String hello() {
-        return "hola";
     }
 
 }
