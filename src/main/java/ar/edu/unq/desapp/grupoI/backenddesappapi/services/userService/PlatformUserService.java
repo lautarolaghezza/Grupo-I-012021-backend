@@ -6,6 +6,8 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.PlatformUserR
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlatformUserService {
 
@@ -15,8 +17,13 @@ public class PlatformUserService {
     public PlatformUser findBy(String nickname) {
         return platformUserRepository.findById(nickname).orElseThrow(UserNotFoundException::new);
     }
-
     public PlatformUser save(PlatformUser user) {
         return platformUserRepository.save(user);
+    }
+
+    public boolean existsUser(PlatformUser user) {
+        Optional<PlatformUser> userLoaded = platformUserRepository.findById(user.getNickname());
+        PlatformUser userLoadedwithmail = platformUserRepository.findByMail(user.getMail());
+        return userLoaded.isPresent() || userLoadedwithmail != null;
     }
 }

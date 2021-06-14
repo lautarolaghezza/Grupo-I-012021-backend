@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.TokenProvider;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserHasBeenAddedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public PlatformUser registerUser(PlatformUser user) {
-        user.setPassword(tokenProvider.createToken(user));
-        return userService.save(user);
+        if(! userService.existsUser(user)){
+            user.setPassword(tokenProvider.createToken(user));
+            return userService.save(user);
+        }else{
+            throw new UserHasBeenAddedException();
+        }
     }
 
     @Override

@@ -17,6 +17,7 @@ public class AuthenticationController extends BaseController {
 
     @PostMapping("login")
     public String login(@RequestBody PlatformUser user) {
+        System.out.println(user.getNickname());
         PlatformUser userLoaded = authService.findUser(user.getNickname());
         System.out.println(userLoaded.getNickname());
         System.out.println(userLoaded.getPassword());
