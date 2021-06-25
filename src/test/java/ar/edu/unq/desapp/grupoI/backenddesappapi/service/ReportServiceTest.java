@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.report.ReportRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reportService.ReportService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ public class ReportServiceTest{
         MockitoAnnotations.initMocks(this);
         report = new Report(1L, 2L, "Lenguaje inapropiado");
         reportService = new ReportService(reportRepository);
-        reportService.addReport(report);
+        //reportService.addReport(report);
         reports.add(report);
     }
 

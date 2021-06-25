@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ValorationServiceTest {
@@ -34,7 +35,7 @@ public class ValorationServiceTest {
                                     1);
         valorationService = new ValorationService(valorationRepository);
         valorations.add(valoration);
-        valorationService.addValoration(valoration);
+        //valorationService.addValoration(valoration);
     }
     @Test
     public void getValorationsTest(){
@@ -43,7 +44,8 @@ public class ValorationServiceTest {
     }
     @Test
     public void getValorationByIdTest(){
-        Mockito.doReturn(valorations.get(0)).when(valorationRepository).findById(1L);
+        Optional<Valoration> valorationOptional =  Optional.of(valorations.get(0));
+        Mockito.doReturn(valorationOptional).when(valorationRepository).findById(1L);
         Assertions.assertEquals(1L, valorationService.getValorationById(1L).getId());
 
     }

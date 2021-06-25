@@ -27,7 +27,7 @@ public class TitleRepositoryImpl {
         Optional<Title> film = titles.stream()
                 .filter(f -> f.getTconst().equals(tconst))
                 .findFirst();
-        return film.orElseThrow(TitleNotFoundException::new);
+        return film.orElseThrow(() -> new TitleNotFoundException(HttpStatus.BAD_REQUEST));
     }
 
 
