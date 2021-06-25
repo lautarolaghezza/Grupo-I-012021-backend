@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundExceptio
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserService {
     public UserAbs findBy(long user_id) {
         UserAbs result = userRepository.findBy(user_id);
         if (result == null){
-            throw new UserNotFoundException();
+            throw new UserNotFoundException(HttpStatus.BAD_REQUEST);
         }
             return result;
     }

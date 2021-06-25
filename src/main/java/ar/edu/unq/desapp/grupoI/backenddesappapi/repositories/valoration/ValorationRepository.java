@@ -11,13 +11,10 @@ import java.util.List;
 
 @Configuration
 @Repository
-public interface ValorationRepository extends JpaRepository<Valoration, Integer> {
+public interface ValorationRepository extends JpaRepository<Valoration, Long> {
 
-    @Query(value = "SELECT * FROM valoration", nativeQuery = true)
-    List<Valoration> findAll();
 
-    @Query(value = "SELECT * FROM valoration v where v.id = :id", nativeQuery = true)
-    Valoration findValorationById(@Param("id") Long id);
+
 
     @Query(value = "SELECT * FROM valoration v where v.review_id = :review_id", nativeQuery = true)
     List<Valoration> findByReview_id(@Param("review_id") Long review_id);

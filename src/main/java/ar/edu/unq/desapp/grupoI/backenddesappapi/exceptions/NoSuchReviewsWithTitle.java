@@ -5,9 +5,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 
-public class ReviewsNotFoundException extends ResponseStatusException {
-    static String reason = "Reviews could not be found";
-    public ReviewsNotFoundException(HttpStatus status) {
+public class NoSuchReviewsWithTitle extends ResponseStatusException {
+
+    static String reason = "Review with this title could not be found";
+    public NoSuchReviewsWithTitle(HttpStatus status) {
         super(status, reason);
         StackTraceElement[] stackTraceElements = new ArrayList<StackTraceElement>().toArray(new StackTraceElement[0]);
         super.setStackTrace(stackTraceElements);

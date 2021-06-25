@@ -3,6 +3,8 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 //import lombok.Getter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReview;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReviewsWithTitle;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
@@ -10,6 +12,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -43,11 +46,13 @@ public class ReviewService {
     }
 
     public Review findById(Long id) {
-        return this.reviewRepository.findById(id).orElseThrow(ReviewsNotFoundException::new);
+        return this.reviewRepository.findById(id).orElseThrow(() -> new ReviewsNotFoundException(HttpStatus.BAD_REQUEST));
     }
 
     public List<Review> findReviewsForTitle(String tconst) {
-        return this.reviewRepository.findReviewsForTitle(tconst);
+        List<Review> reviews = this.reviewRepository.findReviewsForTitle(tconst);
+        if(reviews.isEmpty()) throw new NoSuchReviewsWithTitle(HttpStatus.BAD_REQUEST);
+        return reviews;
     }
 
     //@Override
@@ -58,7 +63,7 @@ public class ReviewService {
                         .equalsIgnoreCase(tittle_tconst))
                 .collect(Collectors.toList());
         if (result.isEmpty()) {
-            throw new ReviewsNotFoundException();
+            throw new ReviewsNotFoundException(HttpStatus.BAD_REQUEST);
         } else {
             return result;
         }

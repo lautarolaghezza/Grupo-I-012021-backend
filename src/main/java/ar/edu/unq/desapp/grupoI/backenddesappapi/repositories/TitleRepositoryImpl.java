@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleHasBeenAddedExc
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class TitleRepositoryImpl {
 
     public void addTitle(Title title) {
         boolean isAdded = this.titles.stream().anyMatch(t -> t.getTconst().equals(title.getTconst()));
-        if (isAdded) throw new TitleHasBeenAddedException();
+        if (isAdded) throw new TitleHasBeenAddedException(HttpStatus.BAD_REQUEST);
         titles.add(title);
     }
 }

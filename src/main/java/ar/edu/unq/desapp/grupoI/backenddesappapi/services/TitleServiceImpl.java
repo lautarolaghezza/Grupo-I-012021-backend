@@ -13,6 +13,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -115,8 +116,8 @@ public class TitleServiceImpl implements TitleService {
         for (List<String> tconstList : titlesToJoin) {
             if (!tconstList.isEmpty()) titles.add(tconstList);
         }
-        Set<String> intersectionTitles = new HashSet<>(titles.get(0));
 
+        Set<String> intersectionTitles = new HashSet<>(titles.get(0));
         for (int i = 1; i < titles.size(); i++) {
             HashSet<String> set = new HashSet<>(titles.get(i));
             intersectionTitles.retainAll(set);
@@ -127,6 +128,6 @@ public class TitleServiceImpl implements TitleService {
 
     @Override
     public Title findById(String id) {
-        return titleRepository.findById(id).orElseThrow(TitleNotFoundException::new);
+        return titleRepository.findById(id).orElseThrow(() -> new TitleNotFoundException(HttpStatus.BAD_REQUEST));
     }
 }

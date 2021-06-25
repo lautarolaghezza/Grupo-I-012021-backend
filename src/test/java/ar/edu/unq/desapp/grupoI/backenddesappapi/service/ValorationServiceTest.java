@@ -43,7 +43,7 @@ public class ValorationServiceTest {
     }
     @Test
     public void getValorationByIdTest(){
-        Mockito.doReturn(valorations.get(0)).when(valorationRepository).findValorationById(1L);
+        Mockito.doReturn(valorations.get(0)).when(valorationRepository).findById(1L);
         Assertions.assertEquals(1L, valorationService.getValorationById(1L).getId());
 
     }

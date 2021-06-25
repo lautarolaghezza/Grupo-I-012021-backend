@@ -2,12 +2,9 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthServiceImpl;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

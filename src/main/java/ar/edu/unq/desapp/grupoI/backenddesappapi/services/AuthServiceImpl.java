@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserHasBeenAddedExce
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
             user.setPassword(tokenProvider.createToken(user));
             return userService.save(user);
         }else{
-            throw new UserHasBeenAddedException();
+            throw new UserHasBeenAddedException(HttpStatus.BAD_REQUEST);
         }
     }
 

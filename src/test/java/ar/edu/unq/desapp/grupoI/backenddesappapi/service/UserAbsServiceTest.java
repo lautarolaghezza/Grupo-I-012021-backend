@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class UserAbsServiceTest {
 
     @Test
     public void  userNotFoundTest(){
-        doThrow( new UserNotFoundException()).when(userRepository).findById(567);
+        doThrow( new UserNotFoundException(HttpStatus.BAD_REQUEST)).when(userRepository).findById(567);
         assertThrows(UserNotFoundException.class, ()-> this.userService.findBy(567));
     }
     @Test

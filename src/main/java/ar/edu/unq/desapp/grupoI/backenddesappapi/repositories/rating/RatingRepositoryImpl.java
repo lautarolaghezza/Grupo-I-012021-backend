@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.rating;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.RatingHasBeenAddedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class RatingRepositoryImpl implements  RatingRepository{
                 .stream()
                 .anyMatch(r -> r.getTittle_tconst()
                         .equalsIgnoreCase(rating.getTittle_tconst()));
-        if (isAdded) throw new RatingHasBeenAddedException();
+        if (isAdded) throw new RatingHasBeenAddedException(HttpStatus.BAD_REQUEST);
         this.ratings.add(rating);
     }
 
