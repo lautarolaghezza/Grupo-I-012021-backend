@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
+package ar.edu.unq.desapp.grupoi.backenddesappapi.Utils;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UnauthorizedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.AuthService;

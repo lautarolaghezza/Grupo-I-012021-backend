@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.valoration.Valoration;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.valorationService.ValorationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class ValorationController extends BaseController{
+public class ValorationController extends BaseController {
     @Autowired
     private ValorationService valorationService;
 

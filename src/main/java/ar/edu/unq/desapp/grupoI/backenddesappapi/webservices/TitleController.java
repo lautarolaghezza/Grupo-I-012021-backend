@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.TitleService;

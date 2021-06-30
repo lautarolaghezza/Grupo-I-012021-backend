@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
+package ar.edu.unq.desapp.grupoi.backenddesappapi.Utils;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import org.springframework.http.HttpStatus;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-public class AuthenticationController extends BaseController {
+public class AuthenticationUtils extends BaseController {
 
     @PostMapping("register")
     public ResponseEntity<PlatformUser> register(@RequestBody PlatformUser user) {

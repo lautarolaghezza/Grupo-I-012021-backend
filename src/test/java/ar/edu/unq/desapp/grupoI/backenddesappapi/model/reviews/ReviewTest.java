@@ -20,13 +20,13 @@ public class ReviewTest {
     public void setUp() {
         this.user = new UserAbs(1L,
                 "",
-                Platform.NETFLIX,
-                Type_User.COMMON,
+                Platform.NETFLIX.name(),
+                Type_User.COMMON.name(),
                 "Jose",
                 "AR",
                 null);
-        this.critic = new UserAbs(12L,"", Platform.NETFLIX,
-                Type_User.CRITIC, null, null,12);
+        this.critic = new UserAbs(12L,"", Platform.NETFLIX.name(),
+                Type_User.CRITIC.name(), null, null,12);
         this.publicReview = new PublicReview("pdc1",
                 "resume",
                 "extended text",

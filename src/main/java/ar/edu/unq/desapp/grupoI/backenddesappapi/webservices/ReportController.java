@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reportService.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
-public class ReportController extends BaseController{
+public class ReportController extends BaseController {
 
     @Autowired
     private ReportService reportService;

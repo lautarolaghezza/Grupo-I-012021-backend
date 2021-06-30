@@ -36,8 +36,8 @@ public class UserAbsServiceTest {
         MockitoAnnotations.initMocks(this);
         UserAbs jose = new UserAbs(4L,
                 "",
-                Platform.DISNEY_PLUS,
-                Type_User.COMMON,
+                Platform.DISNEY_PLUS.name(),
+                Type_User.COMMON.name(),
                 "Jose1990",
                 "AR",
                 null);
@@ -62,8 +62,8 @@ public class UserAbsServiceTest {
     public void addUserTest(){
         doReturn(users).when(userRepository).findAll();
         UserAbs alejadro = new UserAbs(1L, "",
-                Platform.AMAZON_PREMIUM,
-                Type_User.COMMON,
+                Platform.AMAZON_PREMIUM.name(),
+                Type_User.COMMON.name(),
                 "ale123","Argentina", null);
         users.add(alejadro);
         userService.save(alejadro);
@@ -78,7 +78,7 @@ public class UserAbsServiceTest {
     @Test
     public void  findUserByLocation(){
         doReturn(users.stream()
-                      .filter(u -> u.getType_user() == Type_User.COMMON && u.getLocation() == "AR")
+                      .filter(u -> u.getType_user() == Type_User.COMMON.name() && u.getLocation() == "AR")
                       .collect(Collectors.toList()))
                 .when(userRepository).findUserByLocation("AR");
         assertEquals(1, this.userService.findUserByLocation("AR").size());
@@ -86,7 +86,7 @@ public class UserAbsServiceTest {
     @Test
     public void  findUserByPlatform(){
         doReturn(users.stream()
-                .filter(u -> u.getPlatform() == Platform.DISNEY_PLUS)
+                .filter(u -> u.getPlatform() == Platform.DISNEY_PLUS.name())
                 .collect(Collectors.toList()))
                 .when(userRepository).findUserByPlatform("DISNEY_PLUS");
         assertEquals(1, this.userService.findUserByPlatform("DISNEY_PLUS").size());
@@ -94,7 +94,7 @@ public class UserAbsServiceTest {
     @Test
     public void  findUserByTypeUser(){
         doReturn(users.stream()
-                .filter(u -> u.getType_user() == Type_User.COMMON)
+                .filter(u -> u.getType_user() == Type_User.COMMON.name())
                 .collect(Collectors.toList()))
                 .when(userRepository).findUserByTypeUser("COMMON");
         assertEquals(1, this.userService.findUserByTypeUser("COMMON").size());;

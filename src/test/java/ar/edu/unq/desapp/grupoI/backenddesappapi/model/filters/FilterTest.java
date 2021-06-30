@@ -34,7 +34,7 @@ public class FilterTest {
     }
     @Test
     public void gettersTestplatformFilter(){
-        assertEquals(Platform.NETFLIX, platformFilter.getPlatform());
+        assertEquals(Platform.NETFLIX.name(), platformFilter.getPlatform());
     }
     @Test
     public void gettersTestspoilerAlertFilter(){
@@ -42,6 +42,6 @@ public class FilterTest {
     }
     @Test
     public void gettersTesttypeUserFilter(){
-        assertEquals(Type_User.COMMON, typeUserFilter.getType_user());
+        assertEquals(Type_User.COMMON.name(), typeUserFilter.getType_user());
     }
 }
