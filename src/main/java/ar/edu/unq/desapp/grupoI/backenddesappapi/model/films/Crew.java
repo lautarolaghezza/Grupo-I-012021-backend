@@ -15,19 +15,19 @@ import javax.persistence.*;
 @Table(name = "crew")
 public class Crew {
     @Id
-    private String tconst;
+    private String crewtconst;
     @Column
     private String directors;
     @Column
     private String writers;
 
     public Crew(InverseSearchDTO inverseSearchDTO) {
-        this.tconst = inverseSearchDTO.getTconst();
+        this.crewtconst = inverseSearchDTO.getTconst();
         this.directors = inverseSearchDTO.getDirectors();
         this.writers = inverseSearchDTO.getWriters();
     }
 
     public boolean allAttrNull() {
-        return (this.tconst == null && this.directors == null && this.writers == null);
+        return (this.crewtconst == null && this.directors == null && this.writers == null);
     }
 }

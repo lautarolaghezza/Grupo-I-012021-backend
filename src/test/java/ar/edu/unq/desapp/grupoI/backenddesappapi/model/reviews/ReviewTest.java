@@ -35,7 +35,6 @@ public class ReviewTest {
         this.premiumReview = new PremiumReview("pdc2", "resume",
                 "extended text pdc2", 3,
                 new Date(1990,11,6),
-                "English", critic, 12);
+                "English", critic);
     }
-
 }

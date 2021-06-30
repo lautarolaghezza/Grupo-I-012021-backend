@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 //import lombok.Getter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReviewsWithTitle;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
@@ -11,10 +10,14 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,9 +36,12 @@ public class ReviewService {
     @Autowired
     private UserService userService;
 
-    public List<Review> findAll() {
-        return iterableToList(this.reviewRepository.findAll());
-    }
+    @PersistenceContext
+    EntityManager em;
+
+   public List<Review> findAll() {
+       return iterableToList(this.reviewRepository.findAll());
+   }
 
     private List<Review> iterableToList(Iterable<Review> iterable) {
         List<Review> reviews = new ArrayList<>();
@@ -79,9 +85,53 @@ public class ReviewService {
         return result;
     }
 
+    public List<Review> findReviewsWithFilterCriteria(LinkedHashMap<String, String> filters) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Review> cq = cb.createQuery(Review.class);
+
+        Root<Review> reviewRoot = cq.from(Review.class);
+
+        Join<Review, User> userJoin = reviewRoot.join("userAbs");
+
+        List<Predicate> predicates = new ArrayList<>();
+        List<Filter> filterList = this.convertMapToListFilter(filters);
+        for (Filter filter : filterList) {
+            switch (filter.getType()) {
+                case "spoiler_alert":
+                    predicates.add(cb.equal(reviewRoot.get(filter.getType()), filter.getValue().equalsIgnoreCase("true")));
+                    break;
+                case "language":
+                    predicates.add(cb.equal(reviewRoot.get(filter.getType()), filter.getValue()));
+                    break;
+                default:
+                    predicates.add(cb.equal(userJoin.get(filter.getType()), filter.getValue()));
+                    break;
+            }
+
+        }
+        if(filters.get("orderBy") != null){
+            switch (filters.get("orderBy")){
+                case "ratingAsc":
+                    cq.orderBy(cb.asc(reviewRoot.get("rating"))).where(predicates.toArray(new Predicate[0]));
+                    break;
+                case "ratingDesc":
+                    cq.orderBy(cb.desc(reviewRoot.get("rating"))).where(predicates.toArray(new Predicate[0]));
+                    break;
+                case "dateAsc":
+                    cq.orderBy(cb.asc(reviewRoot.get("date"))).where(predicates.toArray(new Predicate[0]));
+                    break;
+                case "dateDesc":
+                    cq.orderBy(cb.desc(reviewRoot.get("date"))).where(predicates.toArray(new Predicate[0]));
+                    break;
+            }
+        }else {
+            cq.where(predicates.toArray(new Predicate[0]));
+        }
+        return em.createQuery(cq).getResultList();
+    }
+
     @Transactional
-    public Review save(UserAbs user, Review review) {
-        review.setUserAbs(user);
+    public Review save(Review review) {
         return this.reviewRepository.save(review);
     }
 
@@ -104,8 +154,8 @@ public class ReviewService {
                 case "spoiler_alert":
                     listFilter.add(new SpoilerAlertFilter(filters.get("spoiler_alert").equalsIgnoreCase("true")));
                     break;
-                case "typeUser":
-                    listFilter.add(new TypeUserFilter(filters.get("typeUser")));
+                case "type_user":
+                    listFilter.add(new TypeUserFilter(filters.get("type_user")));
                     break;
             }
         }
@@ -120,32 +170,5 @@ public class ReviewService {
         if (reviewOrder.isRatingAsc()) return allReviews.stream().sorted(Comparator.comparing(Review::getRating).reversed()).collect(Collectors.toList());
         return allReviews;
     }
-
-
-  /*  public List<Review> orderByRatingAsc(List<Review> reviews) {
-        reviews.sort(Comparator.comparing(Review::getRating));
-        return reviews;
-    }
-
-    public List<Review> orderByRatingDesc(List<Review> reviews) {
-        reviews.sort(Comparator.comparing(Review::getRating));
-        Collections.reverse(reviews);
-        return reviews;
-    }
-
-
-    public List<Review> orderByDateAsc(List<Review> reviews) {
-        reviews.sort(Comparator.comparing(Review::getDate));
-        return reviews;
-    }
-
-
-    public List<Review> orderByDateDesc(List<Review> reviews) {
-        reviews.sort(Comparator.comparing(Review::getDate));
-        Collections.reverse(reviews);
-        return reviews;
-    }
-*/
-
 
 }

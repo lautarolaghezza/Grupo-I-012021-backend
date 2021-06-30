@@ -5,7 +5,6 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -45,6 +44,11 @@ public class ReviewController extends BaseController {
         validateApiKey(apiKey);
         return reviewService.getReviewsWithFilter(filters);
     }
+    @GetMapping(value = "review/filterscr")
+    public List<Review> findReviewsWithFilterCriteria(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
+        validateApiKey(apiKey);
+        return reviewService.findReviewsWithFilterCriteria(filters);
+    }
 
     @GetMapping(value="review/orderBy")
     public List<Review> getReviewsByRating(@RequestHeader("api-key") String apiKey, @RequestBody ReviewOrderDTO reviewOrder) throws FileNotFoundException {
@@ -56,17 +60,14 @@ public class ReviewController extends BaseController {
         @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestHeader("api-key") String apiKey, @RequestBody PublicReview review) {
         validateApiKey(apiKey);
-        UserAbs user = new UserAbs();
-        user.setId(review.getUserId());
-        return reviewService.save(user, review);
+        return reviewService.save(review);
     }
 
     @PostMapping(value = "/premiumReview")
     public Review newPremiumReview(@RequestHeader("api-key") String apiKey, @RequestBody PremiumReview review) {
         validateApiKey(apiKey);
-        UserAbs user = new UserAbs();
-        user.setId(review.getUserId());
-        return reviewService.save(user, review);
+
+        return reviewService.save(review);
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,12 @@ public class TitleController extends BaseController {
     public List<Title> getTitlesMatch(@RequestHeader("api-key") String apiKey, @RequestBody InverseSearchDTO inverseSearchDTO) {
         validateApiKey(apiKey);
         return titleService.findReviewsMatch(inverseSearchDTO);
+    }
+
+    @GetMapping(value = "titles/findAnycr")
+    public List<Title> getTitlesMatchCriteria(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) {
+        validateApiKey(apiKey);
+        return titleService.searchReverseCriteria(filters);
     }
 
 }

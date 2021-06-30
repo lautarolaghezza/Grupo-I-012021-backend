@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Classifiable;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public interface TitleService {
@@ -20,4 +21,6 @@ public interface TitleService {
     public List<Title> findReviewsMatch(InverseSearchDTO inverseSearchDTO);
 
     Title findById(String id);
+
+    List<Title> searchReverseCriteria(LinkedHashMap<String, String> filters);
 }

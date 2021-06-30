@@ -15,10 +15,7 @@ import javax.persistence.*;
 public class Principals {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column
-    private String tconst;
+    private String principaltconst;
     @Column
     private Integer ordering;
     @Column
@@ -31,7 +28,7 @@ public class Principals {
     private String characters;
 
     public Principals(InverseSearchDTO inverseSearchDTO) {
-        this.tconst = inverseSearchDTO.getTconst();
+        this.principaltconst = inverseSearchDTO.getTconst();
         this.ordering = inverseSearchDTO.getOrdering();
         this.nconst = inverseSearchDTO.getNconst();
         this.category = inverseSearchDTO.getCategory();
@@ -40,7 +37,7 @@ public class Principals {
     }
 
     public boolean allAttrNull() {
-        return (this.tconst == null && this.ordering == null && this.nconst == null && this.category == null &&
+        return (this.principaltconst == null && this.ordering == null && this.nconst == null && this.category == null &&
                 this.job == null && this.characters == null);
     }
 }

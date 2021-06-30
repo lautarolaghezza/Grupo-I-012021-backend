@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.user;
 
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.platform.Platform;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,21 +13,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_table")
-public class UserAbs {
+
+public class UserAbs  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column
     private String password;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private Platform platform;
+    private String platform;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private Type_User type_user;
+    private String type_user;
 
     @Column
     private String nickname;
@@ -38,6 +36,5 @@ public class UserAbs {
 
     @Column
     private Integer critic_id;
-
 
 }

@@ -16,6 +16,9 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
 import java.util.*;
 
 @Service
@@ -32,6 +35,9 @@ public class TitleServiceImpl implements TitleService {
 
     @Autowired
     private PrincipalsRepository principalsRepository;
+
+    @PersistenceContext
+    EntityManager em;
 
     public TitleServiceImpl(TitleRepository titleRepository) {
         this.titleRepository = titleRepository;
@@ -103,10 +109,10 @@ public class TitleServiceImpl implements TitleService {
             titleTconsts.add(title.getTconst());
         }
         for (Crew crew : crews) {
-            principalTconsts.add(crew.getTconst());
+            principalTconsts.add(crew.getCrewtconst());
         }
         for (Principals princpals : principalsList) {
-            writersTconsts.add(princpals.getTconst());
+            writersTconsts.add(princpals.getPrincipaltconst());
         }
         return intersection(titleTconsts, principalTconsts, writersTconsts);
     }
@@ -130,4 +136,71 @@ public class TitleServiceImpl implements TitleService {
     public Title findById(String id) {
         return titleRepository.findById(id).orElseThrow(() -> new TitleNotFoundException(HttpStatus.BAD_REQUEST));
     }
+
+    @Override
+    public List<Title> searchReverseCriteria(LinkedHashMap<String, String> filters) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Title> cq = cb.createQuery(Title.class);
+
+        Root<Title> titleRoot = cq.from(Title.class);
+
+        Join<Title, Principals> tittlePrincipalJoin = titleRoot.join("principals");
+        Join<Title, Principals> tittleCrewJoin = titleRoot.join("crew");
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        filters.keySet().forEach( key -> {
+            switch (key) {
+                case "directors":
+                    predicates.add(cb.like(tittleCrewJoin.get("directors"), "%" + filters.get("directors") + "%" ));
+                    break;
+                case "writers":
+                    predicates.add(cb.like(tittleCrewJoin.get("writers"), "%" + filters.get("writers") + "%"));
+                    break;
+                case "ordering":
+                    predicates.add(cb.equal(tittlePrincipalJoin.get("ordering"), filters.get("ordering")));
+                    break;
+                case "nconst":
+                    predicates.add(cb.equal(tittlePrincipalJoin.get("nconst"), filters.get("nconst")));
+                    break;
+                case "category":
+                    predicates.add(cb.equal(tittlePrincipalJoin.get("category"), filters.get("category")));
+                    break;
+                case "job":
+                    predicates.add(cb.equal(tittlePrincipalJoin.get("job"), filters.get("job")));
+                    break;
+                case "characters":
+                    predicates.add(cb.like(tittlePrincipalJoin.get("characters"), "%" + filters.get("characters") + "%" ));
+                    break;
+                case "startYear":
+                    predicates.add(cb.equal(titleRoot.get("startYear"), filters.get("startYear")));
+                    break;
+                case "endYear":
+                    predicates.add(cb.equal(titleRoot.get("endYear"), filters.get("endYear")));
+                    break;
+                case "runtimeMinutes":
+                    predicates.add(cb.equal(titleRoot.get("runtimeMinutes"), filters.get("runtimeMinutes")));
+                    break;
+                case "ratingThan":
+                    predicates.add(cb.gt(titleRoot.get("rating"), Integer.parseInt(filters.get("ratingThan"))));
+                    break;
+                case "ratingLess":
+                    predicates.add(cb.lt(titleRoot.get("rating"), Integer.parseInt(filters.get("ratingLess"))));
+                    break;
+                case "rating":
+                    predicates.add(cb.equal(titleRoot.get("rating"), filters.get("rating")));
+                    break;
+                case "isAdult":
+                    predicates.add(cb.equal(titleRoot.get("isAdult"), filters.get("isAdult").equalsIgnoreCase("true")));
+                    break;
+                default:
+                    predicates.add(cb.like(titleRoot.get(key), "%" + filters.get(key) +"%" ));
+                    break;
+            }
+        });
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(cq).getResultList();
+    }
+
 }

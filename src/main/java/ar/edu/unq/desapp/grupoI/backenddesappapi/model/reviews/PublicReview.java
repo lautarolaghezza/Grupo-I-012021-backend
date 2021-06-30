@@ -5,11 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -18,19 +15,15 @@ import java.util.Date;
 @Entity
 @Table(name = "publicReview")
 public class PublicReview extends Review {
-    @Column
-    private boolean spoiler_Alert;
-
     public PublicReview(String tittle_tconst,
                         String resume, String extendedText,
                         float rating, Date date,
                         String language, UserAbs userAbs,
-                        boolean spoiler_Alert) {
+                        boolean spoiler_alert) {
         super( tittle_tconst,
                 resume, extendedText,
                 rating, date,
-                language, userAbs);
-        this.spoiler_Alert = spoiler_Alert;
+                language, userAbs, spoiler_alert);
     }
 
 

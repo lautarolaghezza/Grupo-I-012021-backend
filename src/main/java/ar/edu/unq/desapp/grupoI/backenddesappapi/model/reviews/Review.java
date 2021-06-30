@@ -16,7 +16,7 @@ import java.util.Date;
 abstract public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long review_id;
     @Column
     private String tittle_tconst;
     @Column
@@ -30,12 +30,16 @@ abstract public class Review {
     private Date date;
     @Column
     private String language;
-    @Column
-    private Long userId;
 
-
-    @Transient
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private UserAbs userAbs;
+
+    @Column
+    private boolean spoiler_alert;
+
+
+
 
     public Review(Review reviewDTO) {
         this.date =  reviewDTO.date;
@@ -43,7 +47,6 @@ abstract public class Review {
         this.resume = reviewDTO.resume;
         this.language = reviewDTO.language;
         this.rating = reviewDTO.rating;
-        this.userId = reviewDTO.userId;
         this.userAbs = reviewDTO.userAbs;
     }
     public Review(String tittle_tconst,
@@ -51,14 +54,13 @@ abstract public class Review {
                   String extendedText,
                   float rating,
                   Date date,
-                  String language, UserAbs userAbs) {
+                  String language, UserAbs userAbs, boolean spoiler_alert) {
         this.tittle_tconst = tittle_tconst;
         this.resume = resume;
         this.extendedText = extendedText;
         this.rating = rating;
         this.date = date;
         this.language = language;
-        this.userId = userAbs.getId();
         this.userAbs = userAbs;
     }
 

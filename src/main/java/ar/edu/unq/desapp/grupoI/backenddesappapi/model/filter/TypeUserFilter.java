@@ -1,18 +1,20 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.Type_User;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Getter
 public final class TypeUserFilter extends Filter{
-    private final Type_User type_user;
+    private String type_user;
 
     public TypeUserFilter(String type_user) {
-        this.type_user = Type_User.valueOf(type_user.toUpperCase());
+        this.type_user = type_user;
+        this.type = "type_user";
+        this.value = type_user;
     }
 
     @Override
@@ -22,13 +24,10 @@ public final class TypeUserFilter extends Filter{
                 .stream()
                 .filter( r -> userAbsList
                         .stream()
-                        .filter(u -> u.getId().equals(r.getUserId()))
+                        .filter(u -> u.getUser_id().equals(r.getUserAbs().getUser_id()))
                         .collect(Collectors.toList())
-                        .get(0).getType_user().equals(this.type_user))
+                        .get(0).getType_user().equalsIgnoreCase(this.type_user))
                 .collect(Collectors.toList());
     }
 
-    public Type_User getType_user() {
-        return type_user;
-    }
 }
