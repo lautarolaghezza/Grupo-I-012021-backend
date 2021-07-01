@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
@@ -34,8 +35,27 @@ public class ReviewController extends BaseController {
         return reviewService.findById(id);
     }
 
+    @PostMapping(value="review/subscribe")
+    public void subscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO){
+        validateApiKey(apiKey);
+        reviewService.subscribe(subscribeDTO);
+    }
 
-    @GetMapping(value = "review/title/{tconst}")
+    @PostMapping(value="review/unsubscribe")
+    public void unsubscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO){
+        validateApiKey(apiKey);
+        reviewService.unsubscribe(subscribeDTO);
+    }
+
+    @GetMapping(value="review/subscribers/{id}")
+    public List<String> getSubscribers(@RequestHeader("api-key") String apiKey, @PathVariable String id){
+        validateApiKey(apiKey);
+        return reviewService.getSubscribers(Integer.parseInt(id));
+    }
+
+
+
+        @GetMapping(value = "review/title/{tconst}")
     public List<Review> getReviewsForTitle(@RequestHeader("api-key") String apiKey, @PathVariable String tconst) {
         validateApiKey(apiKey);
         return reviewService.findReviewsForTitle(tconst);

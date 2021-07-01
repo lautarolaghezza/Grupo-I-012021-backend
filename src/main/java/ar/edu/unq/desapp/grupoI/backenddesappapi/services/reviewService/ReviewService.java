@@ -3,12 +3,15 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 //import lombok.Getter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReviewsWithTitle;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.ReviewSubscriber;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.SubscribeRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +37,17 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
+    private SubscribeRepository subscribeRepository;
+
+    @Autowired
     private UserService userService;
 
     @PersistenceContext
     EntityManager em;
 
-   public List<Review> findAll() {
-       return iterableToList(this.reviewRepository.findAll());
-   }
+    public List<Review> findAll() {
+        return iterableToList(this.reviewRepository.findAll());
+    }
 
     private List<Review> iterableToList(Iterable<Review> iterable) {
         List<Review> reviews = new ArrayList<>();
@@ -57,7 +63,7 @@ public class ReviewService {
 
     public List<Review> findReviewsForTitle(String tconst) {
         List<Review> reviews = this.reviewRepository.findReviewsForTitle(tconst);
-        if(reviews.isEmpty()) throw new NoSuchReviewsWithTitle(HttpStatus.BAD_REQUEST);
+        if (reviews.isEmpty()) throw new NoSuchReviewsWithTitle(HttpStatus.BAD_REQUEST);
         return reviews;
     }
 
@@ -109,8 +115,8 @@ public class ReviewService {
             }
 
         }
-        if(filters.get("orderBy") != null){
-            switch (filters.get("orderBy")){
+        if (filters.get("orderBy") != null) {
+            switch (filters.get("orderBy")) {
                 case "ratingAsc":
                     cq.orderBy(cb.asc(reviewRoot.get("rating"))).where(predicates.toArray(new Predicate[0]));
                     break;
@@ -124,7 +130,7 @@ public class ReviewService {
                     cq.orderBy(cb.desc(reviewRoot.get("date"))).where(predicates.toArray(new Predicate[0]));
                     break;
             }
-        }else {
+        } else {
             cq.where(predicates.toArray(new Predicate[0]));
         }
         return em.createQuery(cq).getResultList();
@@ -164,11 +170,35 @@ public class ReviewService {
 
     public List<Review> getReviewsWithOrder(ReviewOrderDTO reviewOrder) {
         List<Review> allReviews = findAll();
-        if (reviewOrder.isDateAsc()) return allReviews.stream().sorted(Comparator.comparing(Review::getDate)).collect(Collectors.toList());
-        if (reviewOrder.isDateDesc()) return allReviews.stream().sorted(Comparator.comparing(Review::getDate).reversed()).collect(Collectors.toList());
-        if (reviewOrder.isRatingDesc()) return allReviews.stream().sorted(Comparator.comparing(Review::getRating)).collect(Collectors.toList());
-        if (reviewOrder.isRatingAsc()) return allReviews.stream().sorted(Comparator.comparing(Review::getRating).reversed()).collect(Collectors.toList());
+        if (reviewOrder.isDateAsc())
+            return allReviews.stream().sorted(Comparator.comparing(Review::getDate)).collect(Collectors.toList());
+        if (reviewOrder.isDateDesc())
+            return allReviews.stream().sorted(Comparator.comparing(Review::getDate).reversed()).collect(Collectors.toList());
+        if (reviewOrder.isRatingDesc())
+            return allReviews.stream().sorted(Comparator.comparing(Review::getRating)).collect(Collectors.toList());
+        if (reviewOrder.isRatingAsc())
+            return allReviews.stream().sorted(Comparator.comparing(Review::getRating).reversed()).collect(Collectors.toList());
         return allReviews;
     }
 
+    @Transactional
+    public void subscribe(SubscribeDTO subscribeDTO) {
+        ReviewSubscriber subscribers = new ReviewSubscriber(new ArrayList<>(), subscribeDTO.getReviewId());
+        if(subscribeRepository.existsById(subscribeDTO.getReviewId())) {
+            subscribers = subscribeRepository.getOne(subscribeDTO.getReviewId());
+        }
+        subscribers.getUsers().add(subscribeDTO.getNick());
+        subscribeRepository.save(subscribers);
+    }
+
+    @Transactional
+    public void unsubscribe(SubscribeDTO subscribeDTO) {
+        ReviewSubscriber subscribers = subscribeRepository.getOne(subscribeDTO.getReviewId());
+        subscribers.getUsers().remove(subscribeDTO.getNick());
+        subscribeRepository.save(subscribers);
+    }
+
+    public List<String> getSubscribers(Integer reviewId) {
+        return subscribeRepository.getOne(reviewId).getUsers();
+    }
 }
