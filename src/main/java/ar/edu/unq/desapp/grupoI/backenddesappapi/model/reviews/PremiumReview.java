@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ import java.util.Date;
 public class PremiumReview extends Review {
 
     public PremiumReview(String tittle_tconst, String resume,
-                         String extendedText, float rating,
+                         String extendedText, Double rating,
                          Date date, String language,
                          UserAbs userAbs) {
         super(tittle_tconst, resume,

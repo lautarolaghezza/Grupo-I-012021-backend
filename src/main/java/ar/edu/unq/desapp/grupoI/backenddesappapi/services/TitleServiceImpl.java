@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleNotFoundExcepti
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Crew;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Principals;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.TitleRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.CrewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.PrincipalsRepository;
@@ -66,7 +67,7 @@ public class TitleServiceImpl implements TitleService {
     private List<Title> iterableToList(Iterable<Title> iterable) {
         List<Title> titles = new ArrayList<>();
         for (Title title : iterable) {
-            title.addRating(reviewRepository.findReviewsForTitle(title.getTconst()));
+            //title.addRating(reviewRepository.findReviewsForTitle(title.getTconst()));
             titles.add(title);
         }
         return titles;
@@ -145,7 +146,8 @@ public class TitleServiceImpl implements TitleService {
         Root<Title> titleRoot = cq.from(Title.class);
 
         Join<Title, Principals> tittlePrincipalJoin = titleRoot.join("principals");
-        Join<Title, Principals> tittleCrewJoin = titleRoot.join("crew");
+        Join<Title, Crew> tittleCrewJoin = titleRoot.join("crew");
+        Join<Title, Rating> ratingJoin = titleRoot.join("rating");
 
         List<Predicate> predicates = new ArrayList<>();
 
@@ -182,13 +184,13 @@ public class TitleServiceImpl implements TitleService {
                     predicates.add(cb.equal(titleRoot.get("runtimeMinutes"), filters.get("runtimeMinutes")));
                     break;
                 case "ratingThan":
-                    predicates.add(cb.gt(titleRoot.get("rating"), Integer.parseInt(filters.get("ratingThan"))));
+                    predicates.add(cb.gt(ratingJoin.get("average_rating"), Double.parseDouble(filters.get("ratingThan"))));
                     break;
                 case "ratingLess":
-                    predicates.add(cb.lt(titleRoot.get("rating"), Integer.parseInt(filters.get("ratingLess"))));
+                    predicates.add(cb.lt(ratingJoin.get("average_rating"), Double.parseDouble(filters.get("ratingLess"))));
                     break;
                 case "rating":
-                    predicates.add(cb.equal(titleRoot.get("rating"), filters.get("rating")));
+                    predicates.add(cb.equal(ratingJoin.get("average_rating"), filters.get("rating")));
                     break;
                 case "isAdult":
                     predicates.add(cb.equal(titleRoot.get("isAdult"), filters.get("isAdult").equalsIgnoreCase("true")));

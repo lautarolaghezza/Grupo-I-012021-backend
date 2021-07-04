@@ -24,7 +24,7 @@ abstract public class Review {
     @Column
     private String extendedText;
     @Column
-    private float rating;
+    private Double rating;
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date date;
@@ -52,7 +52,7 @@ abstract public class Review {
     public Review(String tittle_tconst,
                   String resume,
                   String extendedText,
-                  float rating,
+                  Double rating,
                   Date date,
                   String language, UserAbs userAbs, boolean spoiler_alert) {
         this.tittle_tconst = tittle_tconst;

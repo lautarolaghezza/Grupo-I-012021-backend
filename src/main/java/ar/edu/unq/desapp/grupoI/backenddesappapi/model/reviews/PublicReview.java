@@ -17,7 +17,7 @@ import java.util.Date;
 public class PublicReview extends Review {
     public PublicReview(String tittle_tconst,
                         String resume, String extendedText,
-                        float rating, Date date,
+                        Double rating, Date date,
                         String language, UserAbs userAbs,
                         boolean spoiler_alert) {
         super( tittle_tconst,

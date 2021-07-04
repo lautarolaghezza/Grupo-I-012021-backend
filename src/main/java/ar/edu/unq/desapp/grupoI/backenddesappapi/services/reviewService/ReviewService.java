@@ -7,17 +7,18 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReviewsWithTitle;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.ReviewSubscriber;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.SubscribeRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.ratingService.RatingService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
@@ -41,6 +42,9 @@ public class ReviewService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RatingService ratingService;
 
     @PersistenceContext
     EntityManager em;
@@ -138,7 +142,12 @@ public class ReviewService {
 
     @Transactional
     public Review save(Review review) {
+        Rating tempRating = ratingService.getRatingById(review.getTittle_tconst());
+        tempRating.setNum_votes(tempRating.getNum_votes() + 1);
+        tempRating.setAverage_rating((tempRating.getAverage_rating() + review.getRating()) / tempRating.getNum_votes());
+        ratingService.addRating(tempRating);
         return this.reviewRepository.save(review);
+
     }
 
 
