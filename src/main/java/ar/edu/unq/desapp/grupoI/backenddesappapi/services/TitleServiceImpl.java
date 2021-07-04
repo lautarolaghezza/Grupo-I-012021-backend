@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -138,6 +139,7 @@ public class TitleServiceImpl implements TitleService {
         return titleRepository.findById(id).orElseThrow(() -> new TitleNotFoundException(HttpStatus.BAD_REQUEST));
     }
 
+    @Transactional
     @Override
     public List<Title> searchReverseCriteria(LinkedHashMap<String, String> filters) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
