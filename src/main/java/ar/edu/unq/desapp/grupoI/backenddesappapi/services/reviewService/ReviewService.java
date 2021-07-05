@@ -152,6 +152,7 @@ public class ReviewService {
             List<String> userNicks = titleService.getSubscribers(title);
             platformUserService.notifyUsers(userNicks, title);
         }
+        recentReviews = new ArrayList<>();
     }
 
     @Transactional
