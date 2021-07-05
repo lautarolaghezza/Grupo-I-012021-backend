@@ -36,5 +36,4 @@ public class UserAbs  {
 
     @Column
     private Integer critic_id;
-
 }

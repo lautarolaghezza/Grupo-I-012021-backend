@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -39,6 +41,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public PlatformUser findUser(String nickname) {
         return userService.findBy(nickname);
+    }
+
+
+    @Transactional
+    @Override
+    public PlatformUser setNotifyUrl(PlatformUser user) {
+        PlatformUser userDB = userService.findBy(user.getNickname());
+        userDB.setNotify_url(user.getNotify_url());
+        return userService.save(userDB);
     }
 
 }

@@ -16,14 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="subscribers")
-public class ReviewSubscriber {
+public class TitleSubscribers {
     @Id
-    Integer reviewId;
+    String tconst;
     @ElementCollection
     List<String> users;
 
-    public ReviewSubscriber(List<String> users, Integer reviewId) {
+    public TitleSubscribers(List<String> users, String tconst) {
         this.users = users;
-        this.reviewId = reviewId;
+        this.tconst = tconst;
     }
 }

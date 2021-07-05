@@ -3,26 +3,27 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.reviewService;
 //import lombok.Getter;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.NoSuchReviewsWithTitle;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.ReviewsNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.filter.*;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.ReviewSubscriber;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.SubscribeRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.TitleService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.ratingService.RatingService;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -38,16 +39,21 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private SubscribeRepository subscribeRepository;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private PlatformUserService platformUserService;
 
     @Autowired
     private RatingService ratingService;
 
+    @Autowired
+    private TitleService titleService;
+
     @PersistenceContext
     EntityManager em;
+
+    private List<String> recentReviews = new ArrayList<String>();
 
     public List<Review> findAll() {
         return iterableToList(this.reviewRepository.findAll());
@@ -140,14 +146,23 @@ public class ReviewService {
         return em.createQuery(cq).getResultList();
     }
 
+    @Scheduled(cron = "0 0/15 * * * *")
+    private void sendNotifications() throws IOException {
+        for (String title: recentReviews) {
+            List<String> userNicks = titleService.getSubscribers(title);
+            platformUserService.notifyUsers(userNicks, title);
+        }
+    }
+
     @Transactional
     public Review save(Review review) {
         Rating tempRating = ratingService.getRatingById(review.getTittle_tconst());
         tempRating.setNum_votes(tempRating.getNum_votes() + 1);
         tempRating.setAverage_rating((tempRating.getAverage_rating() + review.getRating()) / tempRating.getNum_votes());
         ratingService.addRating(tempRating);
-        return this.reviewRepository.save(review);
-
+        Review rev = this.reviewRepository.save(review);
+        this.recentReviews.add(rev.getTittle_tconst());
+        return rev;
     }
 
 
@@ -190,24 +205,4 @@ public class ReviewService {
         return allReviews;
     }
 
-    @Transactional
-    public void subscribe(SubscribeDTO subscribeDTO) {
-        ReviewSubscriber subscribers = new ReviewSubscriber(new ArrayList<>(), subscribeDTO.getReviewId());
-        if(subscribeRepository.existsById(subscribeDTO.getReviewId())) {
-            subscribers = subscribeRepository.getOne(subscribeDTO.getReviewId());
-        }
-        subscribers.getUsers().add(subscribeDTO.getNick());
-        subscribeRepository.save(subscribers);
-    }
-
-    @Transactional
-    public void unsubscribe(SubscribeDTO subscribeDTO) {
-        ReviewSubscriber subscribers = subscribeRepository.getOne(subscribeDTO.getReviewId());
-        subscribers.getUsers().remove(subscribeDTO.getNick());
-        subscribeRepository.save(subscribers);
-    }
-
-    public List<String> getSubscribers(Integer reviewId) {
-        return subscribeRepository.getOne(reviewId).getUsers();
-    }
 }

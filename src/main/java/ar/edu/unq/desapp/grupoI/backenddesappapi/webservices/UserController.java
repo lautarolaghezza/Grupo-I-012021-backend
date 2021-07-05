@@ -1,14 +1,12 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,4 +36,5 @@ public class UserController extends BaseController {
         validateApiKey(apiKey);
         return  userService.findUserByPlatform(platform);
     }
+
 }

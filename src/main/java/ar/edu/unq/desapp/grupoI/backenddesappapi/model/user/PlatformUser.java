@@ -27,5 +27,7 @@ public class PlatformUser {
     @Column
     private String mail;
 
+    @Column
+    private String notify_url;
 
 }

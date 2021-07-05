@@ -2,11 +2,17 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.user.PlatformUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +32,15 @@ public class PlatformUserService {
         Optional<PlatformUser> userLoaded = platformUserRepository.findById(user.getNickname());
         PlatformUser userLoadedwithmail = platformUserRepository.findByMail(user.getMail());
         return userLoaded.isPresent() || userLoadedwithmail != null;
+    }
+
+    public void notifyUsers(List<String> userNicks, String title) throws IOException {
+        for (String nick : userNicks) {
+            PlatformUser user = platformUserRepository.findById(nick).get();
+            HttpURLConnection httpClient =
+                    (HttpURLConnection) new URL(user.getNotify_url()+"/"+title).openConnection();
+            httpClient.setRequestMethod("POST");
+            httpClient.getResponseMessage();
+        }
     }
 }

@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
-
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PublicReview;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
@@ -35,50 +33,32 @@ public class ReviewController extends BaseController {
         return reviewService.findById(id);
     }
 
-    @PostMapping(value="review/subscribe")
-    public void subscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO){
-        validateApiKey(apiKey);
-        reviewService.subscribe(subscribeDTO);
-    }
-
-    @PostMapping(value="review/unsubscribe")
-    public void unsubscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO){
-        validateApiKey(apiKey);
-        reviewService.unsubscribe(subscribeDTO);
-    }
-
-    @GetMapping(value="review/subscribers/{id}")
-    public List<String> getSubscribers(@RequestHeader("api-key") String apiKey, @PathVariable String id){
-        validateApiKey(apiKey);
-        return reviewService.getSubscribers(Integer.parseInt(id));
-    }
-
-
-
-        @GetMapping(value = "review/title/{tconst}")
+    @GetMapping(value = "review/title/{tconst}")
     public List<Review> getReviewsForTitle(@RequestHeader("api-key") String apiKey, @PathVariable String tconst) {
         validateApiKey(apiKey);
         return reviewService.findReviewsForTitle(tconst);
     }
+
     @GetMapping(value = "review/filters")
     public List<Review> getReviewsWithFilters(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         validateApiKey(apiKey);
         return reviewService.getReviewsWithFilter(filters);
     }
+
     @GetMapping(value = "review/filterscr")
     public List<Review> findReviewsWithFilterCriteria(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         validateApiKey(apiKey);
         return reviewService.findReviewsWithFilterCriteria(filters);
     }
 
-    @GetMapping(value="review/orderBy")
+    @GetMapping(value = "review/orderBy")
     public List<Review> getReviewsByRating(@RequestHeader("api-key") String apiKey, @RequestBody ReviewOrderDTO reviewOrder) throws FileNotFoundException {
-       validateApiKey(apiKey);
-       return reviewService.getReviewsWithOrder(reviewOrder);
+        validateApiKey(apiKey);
+        return reviewService.getReviewsWithOrder(reviewOrder);
     }
 
 
-        @PostMapping(value = "/publicReview")
+    @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestHeader("api-key") String apiKey, @RequestBody PublicReview review) {
         validateApiKey(apiKey);
         return reviewService.save(review);

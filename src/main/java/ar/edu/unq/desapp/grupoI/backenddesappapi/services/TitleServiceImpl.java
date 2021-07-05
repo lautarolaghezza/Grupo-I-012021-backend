@@ -2,15 +2,18 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.TitleNotFoundException;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.exceptions.UserAlreadySubsribedException;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Crew;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Principals;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.TitleSubscribers;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.TitleRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.CrewRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.PrincipalsRepository;
-import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.SubscribeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -30,7 +33,7 @@ public class TitleServiceImpl implements TitleService {
     private final TitleRepository titleRepository;
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private SubscribeRepository subscribeRepository;
 
     @Autowired
     private CrewRepository crewRepository;
@@ -205,6 +208,34 @@ public class TitleServiceImpl implements TitleService {
         cq.where(predicates.toArray(new Predicate[0]));
 
         return em.createQuery(cq).getResultList();
+    }
+
+    @Transactional
+    @Override
+    public void subscribe(SubscribeDTO subscribeDTO) {
+        TitleSubscribers subscribers = new TitleSubscribers(new ArrayList<>(), subscribeDTO.getTconst());
+        if(subscribeRepository.existsById(subscribeDTO.getTconst())) {
+            subscribers = subscribeRepository.getOne(subscribeDTO.getTconst());
+        }
+        if(subscribers.getUsers().contains(subscribeDTO.getNick())) {
+            throw new UserAlreadySubsribedException(HttpStatus.BAD_REQUEST);
+        }
+        subscribers.getUsers().add(subscribeDTO.getNick());
+        subscribeRepository.save(subscribers);
+    }
+
+    @Transactional
+    @Override
+    public void unsubscribe(SubscribeDTO subscribeDTO) {
+        TitleSubscribers subscribers = subscribeRepository.getOne(subscribeDTO.getTconst());
+        subscribers.getUsers().remove(subscribeDTO.getNick());
+        subscribeRepository.save(subscribers);
+    }
+
+    @Transactional
+    @Override
+    public List<String> getSubscribers(String tconst) {
+        return subscribeRepository.getOne(tconst).getUsers();
     }
 
 }

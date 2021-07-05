@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class SubscribeDTO {
-    Integer reviewId;
+    String tconst;
     String nick;
 }

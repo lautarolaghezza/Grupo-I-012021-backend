@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.Utils;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,12 @@ public class AuthenticationUtils extends BaseController {
         System.out.println(token);
         System.out.println(userLoaded.getPassword());
         return token;
+    }
+
+    @PostMapping(value="users/notifyurl")
+    public PlatformUser setNotifyUrl(@RequestHeader("api-key") String apiKey, @RequestBody PlatformUser user){
+        validateApiKey(apiKey);
+        return authService.setNotifyUrl(user);
     }
 
 

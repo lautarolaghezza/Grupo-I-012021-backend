@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Classifiable;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.Title;
 
@@ -22,4 +23,10 @@ public interface TitleService {
     Title findById(String id);
 
     List<Title> searchReverseCriteria(LinkedHashMap<String, String> filters);
+
+    void subscribe(SubscribeDTO subscribeDTO);
+
+    void unsubscribe(SubscribeDTO subscribeDTO);
+
+    List<String> getSubscribers(String tconst);
 }
