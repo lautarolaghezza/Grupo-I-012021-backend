@@ -3,11 +3,13 @@ package ar.edu.unq.desapp.grupoi.backenddesappapi.services;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.TitleCache;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films.TitleCacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Service
 public class TitleCacheService {
 
     @Autowired
