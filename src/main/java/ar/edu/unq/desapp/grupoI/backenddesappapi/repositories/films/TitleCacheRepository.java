@@ -1,0 +1,9 @@
+package ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.films;
+
+import ar.edu.unq.desapp.grupoi.backenddesappapi.model.films.TitleCache;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TitleCacheRepository extends CrudRepository<TitleCache, String> {
+}
