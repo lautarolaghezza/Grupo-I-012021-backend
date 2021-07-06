@@ -27,42 +27,49 @@ public class TitleController extends BaseController {
     @Autowired
     private TitleCacheService titleCacheService;
 
+    @LogExecutionTime
     @GetMapping(value = "titles")
     public List<Title> findAll(@RequestHeader("api-key") String apiKey) {
         validateApiKey(apiKey);
         return titleService.findAll();
     }
 
+    @LogExecutionTime
     @GetMapping(value = "title/{id}")
     public Title findByID(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
         validateApiKey(apiKey);
         return titleService.findById(id);
     }
 
+    @LogExecutionTime
     @PostMapping(value = "title/subscribe")
-    public void subscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO) {
+    public void subscribeTitle(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO) {
         validateApiKey(apiKey);
         titleService.subscribe(subscribeDTO);
     }
 
+    @LogExecutionTime
     @PostMapping(value = "title/unsubscribe")
-    public void unsubscribeToReview(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO) {
+    public void unsubscribeTitle(@RequestHeader("api-key") String apiKey, @RequestBody SubscribeDTO subscribeDTO) {
         validateApiKey(apiKey);
         titleService.unsubscribe(subscribeDTO);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "title/subscribers/{id}")
     public List<String> getSubscribers(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
         validateApiKey(apiKey);
         return titleService.getSubscribers(id);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "titles/findAny")
     public List<Title> getTitlesMatch(@RequestHeader("api-key") String apiKey, @RequestBody InverseSearchDTO inverseSearchDTO) {
         validateApiKey(apiKey);
         return titleService.findReviewsMatch(inverseSearchDTO);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "titles/findAnycr")
     public List<Title> getTitlesMatchCriteria(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) {
         validateApiKey(apiKey);

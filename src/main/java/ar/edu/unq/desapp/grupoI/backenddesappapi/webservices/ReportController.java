@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.LogExecutionTime;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.reportService.ReportService;
@@ -17,6 +18,7 @@ public class ReportController extends BaseController {
     @Autowired
     private ReportService reportService;
 
+    @LogExecutionTime
     @PostMapping(value = "report/review")
     public Report reportReview(@RequestHeader("api-key") String apiKey, @RequestBody Report report) {
         validateApiKey(apiKey);

@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.LogExecutionTime;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.ReviewOrderDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.PremiumReview;
@@ -21,36 +22,42 @@ public class ReviewController extends BaseController {
     @Autowired
     private ReviewService reviewService;
 
+    @LogExecutionTime
     @GetMapping(value = "reviews")
     public List<Review> getReviews(@RequestHeader("api-key") String apiKey) {
         validateApiKey(apiKey);
         return reviewService.findAll();
     }
 
+    @LogExecutionTime
     @GetMapping(value = "review/{id}")
     public Review getReview(@RequestHeader("api-key") String apiKey, @PathVariable Long id) {
         validateApiKey(apiKey);
         return reviewService.findById(id);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "review/title/{tconst}")
     public List<Review> getReviewsForTitle(@RequestHeader("api-key") String apiKey, @PathVariable String tconst) {
         validateApiKey(apiKey);
         return reviewService.findReviewsForTitle(tconst);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "review/filters")
     public List<Review> getReviewsWithFilters(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         validateApiKey(apiKey);
         return reviewService.getReviewsWithFilter(filters);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "review/filterscr")
     public List<Review> findReviewsWithFilterCriteria(@RequestHeader("api-key") String apiKey, @RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         validateApiKey(apiKey);
         return reviewService.findReviewsWithFilterCriteria(filters);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "review/orderBy")
     public List<Review> getReviewsByRating(@RequestHeader("api-key") String apiKey, @RequestBody ReviewOrderDTO reviewOrder) throws FileNotFoundException {
         validateApiKey(apiKey);
@@ -58,12 +65,14 @@ public class ReviewController extends BaseController {
     }
 
 
+    @LogExecutionTime
     @PostMapping(value = "/publicReview")
     public Review newPublicReview(@RequestHeader("api-key") String apiKey, @RequestBody PublicReview review) {
         validateApiKey(apiKey);
         return reviewService.save(review);
     }
 
+    @LogExecutionTime
     @PostMapping(value = "/premiumReview")
     public Review newPremiumReview(@RequestHeader("api-key") String apiKey, @RequestBody PremiumReview review) {
         validateApiKey(apiKey);

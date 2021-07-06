@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.Utils;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.LogExecutionTime;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.PlatformUser;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class AuthenticationUtils extends BaseController {
         return token;
     }
 
+    @LogExecutionTime
     @PostMapping(value="users/notifyurl")
     public PlatformUser setNotifyUrl(@RequestHeader("api-key") String apiKey, @RequestBody PlatformUser user){
         validateApiKey(apiKey);
