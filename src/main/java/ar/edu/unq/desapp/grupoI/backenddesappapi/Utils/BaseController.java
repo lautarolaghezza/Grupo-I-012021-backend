@@ -17,4 +17,5 @@ public class BaseController {
             throw new UnauthorizedException(HttpStatus.UNAUTHORIZED);
         }
     }
+
 }

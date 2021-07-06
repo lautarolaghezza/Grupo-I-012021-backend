@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoi.backenddesappapi.webservices;
 
+import ar.edu.unq.desapp.grupoi.backenddesappapi.LogExecutionTime;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.Utils.BaseController;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.InverseSearchDTO;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.dto.SubscribeDTO;
@@ -18,6 +19,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 public class TitleController extends BaseController {
+
 
     @Autowired
     private TitleService titleService;
@@ -67,6 +69,7 @@ public class TitleController extends BaseController {
         return titleService.searchReverseCriteria(filters);
     }
 
+    @LogExecutionTime
     @GetMapping(value = "titles/titlescache")
     public List<TitleCache> getTitlesFromCache(@RequestHeader("api-key") String apiKey) {
         validateApiKey(apiKey);

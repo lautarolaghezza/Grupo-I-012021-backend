@@ -14,4 +14,6 @@ public interface AuthService {
     PlatformUser findUser(String nickname);
 
     PlatformUser setNotifyUrl(PlatformUser user);
+
+    String getUser(String apiKey);
 }

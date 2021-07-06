@@ -24,6 +24,8 @@ public class TitleCacheService {
     public List<TitleCache> findAll() {
         List<TitleCache> titles = new ArrayList<>();
         titleCacheRepository.findAll().forEach(titles::add);
+        if(titles.isEmpty()) setNewsTitles();
+        titleCacheRepository.findAll().forEach(titles::add);
         return titles;
     }
 
@@ -42,6 +44,7 @@ public class TitleCacheService {
         titleCache.setRating(title.getRating().getAverage_rating());
         titleCache.setTconst(title.getTconst());
         titleCache.setVotes(title.getRating().getNum_votes());
+        titleCache.setOriginalTitle(title.getOriginalTitle());
         return titleCache;
     }
 }

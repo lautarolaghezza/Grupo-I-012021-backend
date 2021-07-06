@@ -18,6 +18,9 @@ public class TitleCache {
     private String tconst;
 
     @Column
+    private String originalTitle;
+
+    @Column
     private double rating;
 
     @Column

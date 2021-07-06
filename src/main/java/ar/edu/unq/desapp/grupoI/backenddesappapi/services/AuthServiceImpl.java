@@ -52,4 +52,9 @@ public class AuthServiceImpl implements AuthService {
         return userService.save(userDB);
     }
 
+    @Override
+    public String getUser(String apiKey) {
+        return userService.findBy(tokenProvider.getUserToken(apiKey)).getNickname();
+    }
+
 }
