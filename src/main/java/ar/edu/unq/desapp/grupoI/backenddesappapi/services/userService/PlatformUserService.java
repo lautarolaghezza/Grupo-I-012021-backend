@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,10 +38,12 @@ public class PlatformUserService {
     public void notifyUsers(List<String> userNicks, String title) throws IOException {
         for (String nick : userNicks) {
             PlatformUser user = platformUserRepository.findById(nick).get();
-            HttpURLConnection httpClient =
+            System.out.println("SE LE NOTIFICA AL USER "+nick +
+                    "EN LA URL "+ user.getNotify_url() );
+            /*HttpURLConnection httpClient =
                     (HttpURLConnection) new URL(user.getNotify_url()+"/"+title).openConnection();
             httpClient.setRequestMethod("POST");
-            httpClient.getResponseMessage();
+            httpClient.getResponseMessage();*/
         }
     }
 }

@@ -11,7 +11,7 @@ import javax.persistence.Column;
 @Getter
 @Setter
 @NoArgsConstructor
-@RedisHash("TitleCache")
+@RedisHash("title_cache")
 public class TitleCache {
 
     @Id

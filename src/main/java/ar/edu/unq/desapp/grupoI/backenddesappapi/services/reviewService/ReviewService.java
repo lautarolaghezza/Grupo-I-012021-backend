@@ -10,6 +10,7 @@ import ar.edu.unq.desapp.grupoi.backenddesappapi.model.rating.Rating;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.reviews.Review;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.model.user.UserAbs;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.ReviewRepository;
+import ar.edu.unq.desapp.grupoi.backenddesappapi.repositories.review.SubscribeRepository;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.TitleService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.ratingService.RatingService;
 import ar.edu.unq.desapp.grupoi.backenddesappapi.services.userService.PlatformUserService;
@@ -49,6 +50,9 @@ public class ReviewService {
 
     @Autowired
     private TitleService titleService;
+
+    @Autowired
+    SubscribeRepository subscribeRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -146,10 +150,11 @@ public class ReviewService {
         return em.createQuery(cq).getResultList();
     }
 
-    @Scheduled(cron = "0 0/15 * * * *")
-    private void sendNotifications() throws IOException {
+    @Transactional
+    @Scheduled(fixedRate = 300000)
+    public void sendNotifications() throws IOException {
         for (String title: recentReviews) {
-            List<String> userNicks = titleService.getSubscribers(title);
+            List<String> userNicks = subscribeRepository.getOne(title).getUsers();
             platformUserService.notifyUsers(userNicks, title);
         }
         recentReviews = new ArrayList<>();
