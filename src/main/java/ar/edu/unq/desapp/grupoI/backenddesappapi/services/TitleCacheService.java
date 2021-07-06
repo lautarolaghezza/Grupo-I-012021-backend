@@ -33,6 +33,7 @@ public class TitleCacheService {
 
     @Scheduled(fixedRate = 300000)
     public void setNewsTitles(){
+        titleCacheRepository.deleteAll();
         List<Title> titles = titleRepository.findAll();
         List<TitleCache> titlesCache = new ArrayList<>();
         for (Title title : titles) {
