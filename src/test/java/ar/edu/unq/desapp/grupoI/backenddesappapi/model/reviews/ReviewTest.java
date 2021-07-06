@@ -30,10 +30,10 @@ public class ReviewTest {
         this.publicReview = new PublicReview("pdc1",
                 "resume",
                 "extended text",
-                4, new Date(1990,11,6),
+                4.0, new Date(1990,11,6),
                 "English", user, false);
         this.premiumReview = new PremiumReview("pdc2", "resume",
-                "extended text pdc2", 3,
+                "extended text pdc2", 3.0,
                 new Date(1990,11,6),
                 "English", critic);
     }

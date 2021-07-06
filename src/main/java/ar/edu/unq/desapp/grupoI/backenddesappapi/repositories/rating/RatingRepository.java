@@ -11,6 +11,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, String> {
 
-    @Query(value ="SELECT * FROM rating r WHERE r.tittle_tconst = :tittle_tconst", nativeQuery = true)
-    Rating findAllById(@Param("tittle_tconst")String tittle_tconst);
 }
