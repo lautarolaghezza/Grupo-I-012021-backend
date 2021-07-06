@@ -24,8 +24,10 @@ public class TitleCacheService {
     public List<TitleCache> findAll() {
         List<TitleCache> titles = new ArrayList<>();
         titleCacheRepository.findAll().forEach(titles::add);
-        if(titles.isEmpty()) setNewsTitles();
-        titleCacheRepository.findAll().forEach(titles::add);
+        if(titles.isEmpty()) {
+            setNewsTitles();
+            titleCacheRepository.findAll().forEach(titles::add);
+        }
         return titles;
     }
 

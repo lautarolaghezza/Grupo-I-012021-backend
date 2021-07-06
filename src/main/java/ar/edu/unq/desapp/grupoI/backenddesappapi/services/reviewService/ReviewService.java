@@ -110,7 +110,6 @@ public class ReviewService {
         CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 
         Root<Review> reviewRoot = cq.from(Review.class);
-
         Join<Review, User> userJoin = reviewRoot.join("userAbs");
 
         List<Predicate> predicates = new ArrayList<>();
